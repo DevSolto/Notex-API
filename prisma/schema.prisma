@@ -13,9 +13,122 @@ datasource db {
   url      = "file:./dev.db"
 }
 
-model Users{
+model Users {
   id String @id @default(cuid())
   name String
+  email String @unique
   cpf String @unique
-  tel String @unique
+  password String
+  role String
+  phone String @unique
+
+  Schedule Schedule[]
+  creatingConcept Concept[] @relation("creator")
+  Concept Concept[] @relation("student")
+
+  SubjectClass SubjectClass[]
+
+  UserReportd UserReportd[]
+
+  Studing Studing[]
+
+  Teach Teach[]
+}
+
+model Concept {
+  id String @id @default(cuid())
+  url String
+  creatAt DateTime @default(now())
+
+  creatorId String
+  creator Users? @relation("creator", fields: [creatorId], references: [id])
+
+  studentId String
+  student Users? @relation("student", fields: [studentId], references: [id])
+}
+
+model Report {
+  id String @id @default(cuid())
+  title String
+  description String
+  createAt DateTime @default(now())
+
+  UserReportd UserReportd[]
+}
+
+model Class {
+  id String @id @default(cuid())
+  code String
+  period Int
+
+  Schedule Schedule[]
+
+  SubjectClass SubjectClass[]
+
+  Studing Studing[]
+
+  Teach Teach[]
+}
+
+
+model Subject {
+  id String @id @default(cuid())
+  name String
+
+  SubjectClass SubjectClass[]
+}
+
+model Schedule {
+  id String @id @default(cuid())
+  url String
+  createAt DateTime @default(now())
+
+  creatorId String
+  creator Users? @relation(fields: [creatorId], references: [id])
+
+  classId String
+  class Class? @relation(fields: [classId], references: [id])
+}
+
+model Studing {
+  userId String
+  user Users? @relation(fields: [userId], references: [id])
+
+  classId String
+  class Class? @relation(fields: [classId], references: [id])
+
+  @@unique([userId, classId])
+}
+
+model Teach {
+  userId String
+  user Users? @relation(fields: [userId], references: [id])
+
+  classId String
+  class Class? @relation(fields: [classId], references: [id])
+
+  @@unique([userId, classId])
+}
+
+model SubjectClass {
+  userId String
+  user Users? @relation(fields: [userId], references: [id])
+
+  classId String
+  class Class? @relation(fields: [classId], references: [id])
+
+  subjectId String
+  subject Subject? @relation(fields: [subjectId], references: [id])
+
+  @@unique([userId, classId, subjectId])
+}
+
+model UserReportd {
+  userId String
+  user Users? @relation(fields: [userId], references: [id])
+
+  reportId String
+  report Report? @relation(fields: [reportId], references: [id])
+
+  @@unique([userId, reportId])
 }
