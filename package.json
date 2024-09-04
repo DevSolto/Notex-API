@@ -14,11 +14,14 @@
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "5.19.1",
+    "bcrypt": "^5.1.1",
+    "email-inspector": "^1.0.4",
     "express": "^4.19.2",
     "prisma": "^5.19.1",
     "tsx": "^4.19.0"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/express": "^4.17.21",
     "@types/node": "^22.5.2",
     "ts-node": "^10.9.2",
