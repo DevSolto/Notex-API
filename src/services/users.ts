@@ -1,5 +1,5 @@
-import { createUserModel, getUserByCPFModel, getUserByEmailModel, getUserByPhoneModel, getUsersModel } from "../models/users";
-import { CreateUserParams } from "../types/user";
+import { createUserModel, deleteUserByIdModel, getUserByCPFModel, getUserByEmailModel, getUserByIdModel, getUserByPhoneModel, getUsersModel, updateUserByIdModel } from "../models/users";
+import { CreateUserParams, UpdateUserParams } from "../types/user";
 import  bcrypt from "bcrypt"
 
 export async function getUsersServices(){
@@ -40,4 +40,25 @@ export async function createUserService(createUserParams:CreateUserParams) {
     })
 
     return user
+}
+
+export async function deleteUserByIdService(id: string) {
+    const user = await getUserByIdModel(id)
+
+    if (!user) {
+        return({
+            message:"Usuario não encontrado"
+        })
+    }
+    return await deleteUserByIdModel(id)
+}
+
+export async function updateUserByIdService(id: string, data:UpdateUserParams) {
+    const user = await updateUserByIdModel(id, data)
+
+    if(user) {
+        return(
+            user
+        )
+    }
 }

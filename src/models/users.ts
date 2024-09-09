@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client"
-import { CreateUserParams } from "../types/user"
+import { CreateUserParams, UpdateUserParams } from "../types/user"
 
 const prisma = new PrismaClient()
 
@@ -35,5 +35,30 @@ export async function getUserByPhoneModel(phone: string) {
         where: {
             phone
         }
+    })
+}
+
+export async function getUserByIdModel(id: string) {
+    return await prisma.users.findUnique({
+        where: {
+            id
+        }
+    })
+}
+
+export async function deleteUserByIdModel(id: string) {
+    return await prisma.users.delete({
+        where: {
+            id
+        }
+    })
+}
+
+export async function updateUserByIdModel(id: string, data:UpdateUserParams) {
+    return await prisma.users.update({
+        where: {
+            id
+        },
+        data
     })
 }
