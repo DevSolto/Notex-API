@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client"
-import { CreateUserParams } from "../types/user"
+import { CreateUserParams } from "../../types/user"
 
 const prisma = new PrismaClient()
 
@@ -17,9 +17,9 @@ export async function createUserModel(createUserParams: CreateUserParams) {
 export async function getUserByEmailModel(email: string) {
     return await prisma.users.findUnique({
         where: {
-            email 
+            email
         }
-    })    
+    })
 }
 
 export async function getUserByCPFModel(cpf: string) {
