@@ -11,9 +11,18 @@ importers:
       '@prisma/client':
         specifier: 5.19.1
         version: 5.19.1(prisma@5.19.1)
+      awesome-phonenumber:
+        specifier: ^7.0.1
+        version: 7.0.1
       bcrypt:
         specifier: ^5.1.1
         version: 5.1.1
+      br-validations:
+        specifier: ^0.3.1
+        version: 0.3.1
+      easy-cpf:
+        specifier: ^1.2.0
+        version: 1.2.0
       email-inspector:
         specifier: ^1.0.4
         version: 1.0.4
@@ -23,6 +32,9 @@ importers:
       prisma:
         specifier: ^5.19.1
         version: 5.19.1
+      telefone:
+        specifier: ^1.2.4
+        version: 1.2.4
       tsx:
         specifier: ^4.19.0
         version: 4.19.0
@@ -320,6 +332,10 @@ packages:
   array-flatten@1.1.1:
     resolution: {integrity: sha512-PCVAQswWemu6UdxsDFFX/+gVeYqKAod3D3UVm91jHwynguOwAvYPhx8nNlM++NqRcK6CxxpUafjmhIdKiHibqg==}
 
+  awesome-phonenumber@7.0.1:
+    resolution: {integrity: sha512-F97hjL1unidOh+aho9WNZgyvFFYevVg4vU40s6Xb/X7KpZu3cX99vetJ9LUbb3bshGnlLZdVFPjU0TlGypUenA==}
+    engines: {node: '>=18'}
+
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
 
@@ -330,6 +346,9 @@ packages:
   body-parser@1.20.2:
     resolution: {integrity: sha512-ml9pReCu3M61kGlqoTm2umSXTlRTuGTx0bfYj+uIUKKYycG5NtSbeetV3faSU6R7ajOPw0g/J1PvK4qNy7s5bA==}
     engines: {node: '>= 0.8', npm: 1.2.8000 || >= 1.4.16}
+
+  br-validations@0.3.1:
+    resolution: {integrity: sha512-8ncHlnsMwz15kqAyc2mN9b6yb/WXhlwq3itKJK9L1tdIPCzqmYReBjmmvdAmGQAo3/A7IWHUFe0O/9c/hfNpIw==}
 
   brace-expansion@1.1.11:
     resolution: {integrity: sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==}
@@ -413,6 +432,9 @@ packages:
   diff@4.0.2:
     resolution: {integrity: sha512-58lmxKSA4BNyLz+HHMUzlOEpg09FV+ev6ZMe3vJihgdxzgcwZ8VoEEPmALCZG9LmqfVoNMMKpttIYTVG6uDY7A==}
     engines: {node: '>=0.3.1'}
+
+  easy-cpf@1.2.0:
+    resolution: {integrity: sha512-t8OG5EQxl8Cztfclvz2WPuO/c9/rSEvcKCec1/nxossT0VRDOPSlpEmcwtWZKvmLAKYWt2ZOf2hBiBPhm5n7fQ==}
 
   ee-first@1.1.1:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
@@ -753,6 +775,9 @@ packages:
     resolution: {integrity: sha512-DZ4yORTwrbTj/7MZYq2w+/ZFdI6OZ/f9SFHR+71gIVUZhOQPHzVCLpvRnPgyaMpfWxxk/4ONva3GQSyNIKRv6A==}
     engines: {node: '>=10'}
 
+  telefone@1.2.4:
+    resolution: {integrity: sha512-RdZwNApyJIl8X1KVGesieZFsa7bS4TYqL7jn8CjWJ9I9hDg7V/MDlWto9pBYzqEvodS9nb4l1YgjKPbK6YI+CQ==}
+
   toidentifier@1.0.1:
     resolution: {integrity: sha512-o5sSPKEkg/DIQNmH43V0/uerLrpzVedkUh8tGNvaeXpfpuwjKenlSox/2O/BTlZUtEe+JG7s5YhEz608PlAHRA==}
     engines: {node: '>=0.6'}
@@ -1048,6 +1073,8 @@ snapshots:
 
   array-flatten@1.1.1: {}
 
+  awesome-phonenumber@7.0.1: {}
+
   balanced-match@1.0.2: {}
 
   bcrypt@5.1.1:
@@ -1074,6 +1101,8 @@ snapshots:
       unpipe: 1.0.0
     transitivePeerDependencies:
       - supports-color
+
+  br-validations@0.3.1: {}
 
   brace-expansion@1.1.11:
     dependencies:
@@ -1133,6 +1162,8 @@ snapshots:
   detect-libc@2.0.3: {}
 
   diff@4.0.2: {}
+
+  easy-cpf@1.2.0: {}
 
   ee-first@1.1.1: {}
 
@@ -1528,6 +1559,8 @@ snapshots:
       minizlib: 2.1.2
       mkdirp: 1.0.4
       yallist: 4.0.0
+
+  telefone@1.2.4: {}
 
   toidentifier@1.0.1: {}
 
