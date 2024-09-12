@@ -37,3 +37,11 @@ export async function getUserByPhoneModel(phone: string) {
         }
     })
 }
+
+export async function getUserByIdModel(id: string) {
+    return await prisma.users.findUnique({
+        where: {
+            id
+        }
+    })
+}
