@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client"
-import { CreateUserParams } from "../../types/user"
+import { CreateUserParams } from "../types/user"
 
 const prisma = new PrismaClient()
 

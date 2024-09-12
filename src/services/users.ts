@@ -1,5 +1,5 @@
 import { createUserModel, getUserByCPFModel, getUserByEmailModel, getUserByPhoneModel, getUsersModel } from "../models/users";
-import { CreateUserParams } from "../../types/user";
+import { CreateUserParams } from "../types/user";
 import bcrypt from "bcrypt"
 
 export async function getUsersServices() {
