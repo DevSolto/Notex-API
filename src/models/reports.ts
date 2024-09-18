@@ -22,3 +22,6 @@ export async function getReportByTitleModel(title: string) {
     });
 }
 
+export async function name(params:type) {
+    
+}
