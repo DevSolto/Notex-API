@@ -1,4 +1,4 @@
 export type CreateReportParams = {
     title: string
-    description: String
+    description: string
 }
