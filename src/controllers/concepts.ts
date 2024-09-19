@@ -24,7 +24,7 @@ conceptRouter.post('/concepts', async (req, res) => {
     if (error instanceof ZodError) {
       res.status(400).send({
         message: 'Validation Error',
-        errors: error.errors.map(err => err.message),
+        errors: error,
       });
     } else if (error instanceof Error) {
       if (error.message.includes('Criador não encontrado')) {

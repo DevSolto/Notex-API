@@ -1,5 +1,5 @@
-import { createUserModel, getUserByCPFModel, getUserByEmailModel, getUserByPhoneModel, getUsersModel } from "../models/users";
-import { CreateUserParams } from "../types/user";
+import { createUserModel, getUserByCPFModel, getUserByEmailModel, getUserByPhoneModel, getUsersModel, updateUserModel } from "../models/users";
+import { CreateUserParams, UpdateUserParams } from "../types/user";
 import bcrypt from "bcrypt"
 
 export async function getUsersServices() {
@@ -8,30 +8,24 @@ export async function getUsersServices() {
 }
 export async function createUserService(createUserParams: CreateUserParams) {
 
-    //TODO: Validar se email existe
     const isEmailInUse = await getUserByEmailModel(createUserParams.email)
     if (isEmailInUse) {
         return ({
             message: "Este e-mail está sendo usado por outro usuário"
         })
     }
-    //TODO: Validar se cpf existe
     const isCPFInUse = await getUserByCPFModel(createUserParams.cpf)
     if (isCPFInUse) {
         return ({
             message: "Esta CPF está em uso por outro usuário"
         })
     }
-    //TODO: Validar se o telefone existe
     const isPhoneInUse = await getUserByPhoneModel(createUserParams.phone)
     if (isPhoneInUse) {
         return ({
             message: "Este Número está sendo usado por outro usuário"
         })
     }
-
-
-    //TODO: Fazer o hash da senha
     const hash = await bcrypt.hash(createUserParams.password, 10)
 
     const user = await createUserModel({
@@ -40,4 +34,41 @@ export async function createUserService(createUserParams: CreateUserParams) {
     })
 
     return user
+}
+
+export async function updateUserService(id: string, updateUserParams: UpdateUserParams) {
+    if (updateUserParams.email) {
+        const isEmailInUse = await getUserByEmailModel(updateUserParams.email)
+        if (isEmailInUse) {
+            return ({
+                message: "Este e-mail está sendo usado por outro usuário"
+            })
+        }
+    }
+    if (updateUserParams.cpf) {
+        const isCPFInUse = await getUserByCPFModel(updateUserParams.cpf)
+        if (isCPFInUse) {
+            return ({
+                message: "Esta CPF está em uso por outro usuário"
+            })
+        }
+    }
+    if (updateUserParams.phone) {
+        const isPhoneInUse = await getUserByPhoneModel(updateUserParams.phone)
+        if (isPhoneInUse) {
+            return ({
+                message: "Este Número está sendo usado por outro usuário"
+            })
+        }
+    }
+
+    if (updateUserParams.password) {
+        const hash = await bcrypt.hash(updateUserParams.password, 10)
+        return await updateUserModel(id, {
+            ...updateUserParams,
+            password: hash
+        })
+
+    }
+    return await updateUserModel(id, updateUserParams)
 }
