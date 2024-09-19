@@ -9,22 +9,23 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url  	    = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Users {
-  id String @id @default(cuid())
-  name String
-  email String @unique
-  cpf String @unique
+  id       String  @id @default(cuid())
+  name     String
+  email    String  @unique
+  cpf      String  @unique
   password String
-  role String
-  phone String @unique
+  role     String
+  phone    String  @unique
+  isActive Boolean @default(true)
 
-  Schedule Schedule[]
-  creatingConcept Concept[] @relation("creator")
-  Concept Concept[] @relation("student")
+  Schedule        Schedule[]
+  creatingConcept Concept[]  @relation("creator")
+  Concept         Concept[]  @relation("student")
 
   SubjectClass SubjectClass[]
 
@@ -36,29 +37,29 @@ model Users {
 }
 
 model Concept {
-  id String @id @default(cuid())
-  url String
+  id      String   @id @default(cuid())
+  url     String
   creatAt DateTime @default(now())
 
   creatorId String
-  creator Users? @relation("creator", fields: [creatorId], references: [id])
+  creator   Users? @relation("creator", fields: [creatorId], references: [id])
 
   studentId String
-  student Users? @relation("student", fields: [studentId], references: [id])
+  student   Users? @relation("student", fields: [studentId], references: [id])
 }
 
 model Report {
-  id String @id @default(cuid())
-  title String
+  id          String   @id @default(cuid())
+  title       String
   description String
-  createAt DateTime @default(now())
+  createAt    DateTime @default(now())
 
   UserReportd UserReportd[]
 }
 
 model Class {
-  id String @id @default(cuid())
-  code String
+  id     String @id @default(cuid())
+  code   String
   period Int
 
   Schedule Schedule[]
@@ -70,65 +71,64 @@ model Class {
   Teach Teach[]
 }
 
-
 model Subject {
-  id String @id @default(cuid())
+  id   String @id @default(cuid())
   name String
 
   SubjectClass SubjectClass[]
 }
 
 model Schedule {
-  id String @id @default(cuid())
-  url String
+  id       String   @id @default(cuid())
+  url      String
   createAt DateTime @default(now())
 
   creatorId String
-  creator Users? @relation(fields: [creatorId], references: [id])
+  creator   Users? @relation(fields: [creatorId], references: [id])
 
   classId String
-  class Class? @relation(fields: [classId], references: [id])
+  class   Class? @relation(fields: [classId], references: [id])
 }
 
 model Studing {
   userId String
-  user Users? @relation(fields: [userId], references: [id])
+  user   Users? @relation(fields: [userId], references: [id])
 
   classId String
-  class Class? @relation(fields: [classId], references: [id])
+  class   Class? @relation(fields: [classId], references: [id])
 
   @@unique([userId, classId])
 }
 
 model Teach {
   userId String
-  user Users? @relation(fields: [userId], references: [id])
+  user   Users? @relation(fields: [userId], references: [id])
 
   classId String
-  class Class? @relation(fields: [classId], references: [id])
+  class   Class? @relation(fields: [classId], references: [id])
 
   @@unique([userId, classId])
 }
 
 model SubjectClass {
   userId String
-  user Users? @relation(fields: [userId], references: [id])
+  user   Users? @relation(fields: [userId], references: [id])
 
   classId String
-  class Class? @relation(fields: [classId], references: [id])
+  class   Class? @relation(fields: [classId], references: [id])
 
   subjectId String
-  subject Subject? @relation(fields: [subjectId], references: [id])
+  subject   Subject? @relation(fields: [subjectId], references: [id])
 
   @@unique([userId, classId, subjectId])
 }
 
 model UserReportd {
   userId String
-  user Users? @relation(fields: [userId], references: [id])
+  user   Users? @relation(fields: [userId], references: [id])
 
   reportId String
-  report Report? @relation(fields: [reportId], references: [id])
+  report   Report? @relation(fields: [reportId], references: [id])
 
   @@unique([userId, reportId])
 }
