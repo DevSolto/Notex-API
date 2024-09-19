@@ -1,4 +1,4 @@
-import { createClassModel, getClassesModel } from "../models/classes";
+import { createClassModel, getClassesModel, getClassesByIdModel } from "../models/classes";
 import { CreateClassParams } from "../types/class";
 
 export async function getClassesService() {
@@ -11,3 +11,4 @@ export async function createClassService(createClassParams: CreateClassParams) {
         ...createClassParams
     })
 }
+

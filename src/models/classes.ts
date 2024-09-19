@@ -8,6 +8,14 @@ export async function getClassesModel() {
     return await prisma.class.findMany()
 }
 
+export async function getClassesByIdModel(id: string) {
+    return await prisma.class.findUnique({
+        where: {
+            id: id
+        }
+    })
+}
+
 export async function createClassModel(createClassParams: CreateClassParams) {
     return prisma.class.create({
         data: createClassParams
