@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client"
-import { CreateUserParams } from "../types/user"
+import { CreateUserParams, UpdateUserParams } from "../types/user"
 
 const prisma = new PrismaClient()
 
@@ -43,5 +43,14 @@ export async function getUserByIdModel(id: string) {
         where: {
             id
         }
+    })
+}
+
+export async function updateUserModel(id: string, data: UpdateUserParams) {
+    return await prisma.users.update({
+        where: {
+            id
+        },
+        data
     })
 }

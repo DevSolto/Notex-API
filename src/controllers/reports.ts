@@ -3,22 +3,22 @@ import { getReportsServices, createReportService } from '../services/reports';
 import { createReportSchema } from "../schemas/reports";
 import { ZodError } from "zod";
 
-export const router = Router();
+export const reportsController = Router();
 
-router.get('/reports', async (req, res) => {
+reportsController.get('/reports', async (req, res) => {
     const reports = await getReportsServices()
     res.send(reports)
 })
 
-router.post('/reports', async (req, res) => {
+reportsController.post('/reports', async (req, res) => {
     try {
         const createReportParams = createReportSchema.parse(req.body)
         const createdReport = await createReportService(createReportParams)
         res.send(createdReport)
     } catch (error) {
-        if(error instanceof ZodError){
+        if (error instanceof ZodError) {
             res.status(400).send(error)
-        } else{
+        } else {
             res.status(500).send(error)
 
         }
