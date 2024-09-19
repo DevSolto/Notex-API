@@ -25,7 +25,7 @@ reportsController.post('/reports', async (req, res) => {
     }
 })
 
-reportsrouter.delete('/reports/:id', async (req, res) => {
+reportsController.delete('/reports/:id', async (req, res) => {
     try { 
         const reportDeleted = await getReportAndDeleteService(req.params.id)
         res.send(reportDeleted)

@@ -47,6 +47,7 @@ export async function getUserByIdModel(id: string) {
 }
 
 export async function updateUserModel(id: string, data: UpdateUserParams) {
+
     return await prisma.users.update({
         where: {
             id
