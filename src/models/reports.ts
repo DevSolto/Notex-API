@@ -22,6 +22,18 @@ export async function getReportByTitleModel(title: string) {
     });
 }
 
-export async function name(params:type) {
-    
+export async function getReportByIdModel(id: string) {
+    return await prisma.report.findUnique({
+        where: {
+            id: id
+        }
+    })
+}
+
+export async function getReportAndDeleteModel(id: string) {
+    return await prisma.report.delete({
+        where: {
+            id: id
+        }
+    })
 }

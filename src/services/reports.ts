@@ -1,4 +1,4 @@
-import { createReportModel, getReportsModel, getReportByTitleModel } from "../models/reports";
+import { createReportModel, getReportsModel, getReportByTitleModel, getReportByIdModel, getReportAndDeleteModel } from "../models/reports";
 import { CreateReportParams } from "../types/report";
 
 
@@ -8,11 +8,26 @@ export async function getReportsServices() {
 
 export async function createReportService(createReportParams: CreateReportParams) {
 
-    const report = await createReportModel({
+    const Createreport = await createReportModel({
         ...createReportParams
     });
 
+    return Createreport;
+}
 
+export async function getReportByTitleService(title: string) {
 
-    return report;
+    return await getReportByTitleModel(title)
+}
+
+export async function getReportByIdService(id: string) {
+
+    return await getReportByIdModel(id)
+}
+
+export async function getReportAndDeleteService(id: string) {
+    
+    const getAndDelete = await getReportAndDeleteModel(id)
+
+    return getAndDelete
 }
