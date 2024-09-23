@@ -1,0 +1,32 @@
+### Create a new subject
+POST http://localhost:3000/subjects
+Content-Type: application/json
+
+{
+  "name": "Mathematics"
+}
+
+###
+
+### Get all subjects
+GET http://localhost:3000/subjects
+
+###
+
+### Get a specific subject by ID
+GET http://localhost:3000/subjects/{{subjectId}}
+
+###
+
+### Update a subject
+PATCH http://localhost:3000/subjects/{{subjectId}}
+Content-Type: application/json
+
+{
+  "name": "Advanced Mathematics"
+}
+
+###
+
+### Delete a subject
+DELETE http://localhost:3000/subjects/{{subjectId}}

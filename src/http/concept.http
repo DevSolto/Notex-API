@@ -1,0 +1,34 @@
+### Create a new concept
+POST http://localhost:3000/concepts
+Content-Type: application/json
+
+{
+  "url": "https://example.com/concept",
+  "creatorId": "{{creatorId}}",
+  "studentId": "{{studentId}}"
+}
+
+###
+
+### Get all concepts
+GET http://localhost:3000/concepts
+
+###
+
+### Get a specific concept by ID
+GET http://localhost:3000/concepts/{{conceptId}}
+
+###
+
+### Update a concept
+PATCH http://localhost:3000/concepts/{{conceptId}}
+Content-Type: application/json
+
+{
+  "url": "https://example.com/updated-concept"
+}
+
+###
+
+### Delete a concept
+DELETE http://localhost:3000/concepts/{{conceptId}}

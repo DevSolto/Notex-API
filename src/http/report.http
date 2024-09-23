@@ -1,0 +1,34 @@
+### Create a new report
+POST http://localhost:3000/reports
+Content-Type: application/json
+
+{
+  "title": "Report Title",
+  "description": "Report Description"
+}
+
+###
+
+### Get all reports
+GET http://localhost:3000/reports
+
+###
+
+### Get a specific report by ID
+GET http://localhost:3000/reports/{{reportId}}
+
+###
+
+### Update a report
+PATCH http://localhost:3000/reports/{{reportId}}
+Content-Type: application/json
+
+{
+  "title": "Updated Report Title",
+  "description": "Updated Report Description"
+}
+
+###
+
+### Delete a report
+DELETE http://localhost:3000/reports/{{reportId}}

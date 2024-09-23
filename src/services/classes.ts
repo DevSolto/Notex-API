@@ -11,17 +11,16 @@ export async function getClassesByIdService(id: string) {
 
 export async function createClassService(createClassParams: CreateClassParams) {
 
-    const Createclass = await createClassModel({
+    const createClass = await createClassModel({
         ...createClassParams
     })
-
-    return Createclass
+    return createClass
 }
 
 export async function updateClassService(id: string, updateClassParams: updateClassParams) {
     if (updateClassParams.code) {
         const isCodeInUse = await getClassesByIdModel(updateClassParams.code)
-        if(isCodeInUse) {
+        if (isCodeInUse) {
             return ({
                 message: "Este código está sendo usado por outra turma"
             })
