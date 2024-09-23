@@ -1,7 +1,5 @@
 import { Router } from "express";
-import {
-    createUserService, getUsersServices, updateUserService
-} from "../services/users";
+import { createUserService, getUsersServices, updateUserService } from "../services/users";
 import { createUserSchema, updateUserSchema } from "../schemas/users";
 import { ZodError } from "zod";
 
