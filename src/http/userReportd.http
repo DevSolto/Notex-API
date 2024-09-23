@@ -1,0 +1,23 @@
+### Create a new user report record
+POST http://localhost:3000/user-reportd
+Content-Type: application/json
+
+{
+  "userId": "{{userId}}",
+  "reportId": "{{reportId}}"
+}
+
+###
+
+### Get all user report records
+GET http://localhost:3000/user-reportd
+
+###
+
+### Get a specific user report record by user ID and report ID
+GET http://localhost:3000/user-reportd/{{userId}}/{{reportId}}
+
+###
+
+### Delete a user report record
+DELETE http://localhost:3000/user-reportd/{{userId}}/{{reportId}}

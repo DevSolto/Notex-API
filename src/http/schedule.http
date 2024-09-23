@@ -1,0 +1,34 @@
+### Create a new schedule
+POST http://localhost:3000/schedules
+Content-Type: application/json
+
+{
+  "url": "https://example.com/schedule",
+  "creatorId": "{{creatorId}}",
+  "classId": "{{classId}}"
+}
+
+###
+
+### Get all schedules
+GET http://localhost:3000/schedules
+
+###
+
+### Get a specific schedule by ID
+GET http://localhost:3000/schedules/{{scheduleId}}
+
+###
+
+### Update a schedule
+PATCH http://localhost:3000/schedules/{{scheduleId}}
+Content-Type: application/json
+
+{
+  "url": "https://example.com/updated-schedule"
+}
+
+###
+
+### Delete a schedule
+DELETE http://localhost:3000/schedules/{{scheduleId}}
