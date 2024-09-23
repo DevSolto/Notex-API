@@ -1,4 +1,4 @@
-import { createClassModel, getClassesModel, getClassesByIdModel, updateClassModel } from "../models/classes";
+import { createClassModel, getClassesModel, getClassesByIdModel, updateClassModel, deleteClassModel } from "../models/classes";
 import { CreateClassParams, updateClassParams } from "../types/class";
 
 export async function getClassesService() {
@@ -30,4 +30,8 @@ export async function updateClassService(id: string, updateClassParams: updateCl
 
     return await updateClassModel(id, updateClassParams)
 
+}
+
+export async function deleteClassService(id: string) {
+    return await deleteClassModel(id)
 }

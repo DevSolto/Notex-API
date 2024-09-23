@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getClassesService, createClassService,  updateClassService} from "../services/classes";
+import { getClassesService, createClassService, updateClassService, getClassesByIdService, deleteClassService } from "../services/classes";
 import { createClassSchema, updateClassSchema } from "../schemas/classes";
 import { ZodError } from "zod";
 
@@ -10,10 +10,13 @@ classesController.get('/classes', async (req, res) => {
     res.send(classes)
 })
 
-classesController.get('/users/:id', async (req, res) => {
+classesController.get('/classes/:id', async (req, res) => {
     const classId = req.params.id
-    res.send(getClassesService)
-    
+
+    const deletedClass = await getClassesByIdService(classId)
+
+    res.send(deletedClass)
+
 })
 
 classesController.post('/classes', async (req, res) => {
@@ -29,6 +32,27 @@ classesController.post('/classes', async (req, res) => {
         }
     }
 })
+classesController.patch('/classes/:id', async (req, res) => {
+    try {
+        const createClassParams = updateClassSchema.parse(req.body)
+        const updatedClass = await updateClassService(req.params.id, createClassParams)
+        res.send(updatedClass)
+    } catch (error) {
+        if (error instanceof ZodError) {
+            res.status(400).send(error)
+        } else {
+            res.status(500).send(error)
+        }
+    }
+})
+
+classesController.delete('/classes/:id', async (req, res) => {
+    const deletedClass = await deleteClassService(req.params.id)
+
+    res.send(deletedClass)
+})
+
+
 
 
 

@@ -1,6 +1,5 @@
 import { PrismaClient } from "@prisma/client"
 import { CreateClassParams, updateClassParams } from "../types/class"
-import { string } from "zod"
 
 const prisma = new PrismaClient()
 
@@ -26,8 +25,17 @@ export async function createClassModel(createClassParams: CreateClassParams) {
 export async function updateClassModel(id: string, data: updateClassParams) {
 
     return await prisma.class.update({
-        where:{
+        where: {
             id
         }, data
+    })
+}
+
+
+export async function deleteClassModel(id: string) {
+    return await prisma.class.delete({
+        where: {
+            id
+        }
     })
 }
