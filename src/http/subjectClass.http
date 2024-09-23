@@ -1,0 +1,24 @@
+### Create a new subject class record
+POST http://localhost:3000/subject-class
+Content-Type: application/json
+
+{
+  "userId": "{{userId}}",
+  "classId": "{{classId}}",
+  "subjectId": "{{subjectId}}"
+}
+
+###
+
+### Get all subject class records
+GET http://localhost:3000/subject-class
+
+###
+
+### Get a specific subject class record by user ID, class ID, and subject ID
+GET http://localhost:3000/subject-class/{{userId}}/{{classId}}/{{subjectId}}
+
+###
+
+### Delete a subject class record
+DELETE http://localhost:3000/subject-class/{{userId}}/{{classId}}/{{subjectId}}

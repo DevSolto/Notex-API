@@ -1,0 +1,23 @@
+### Create a new teaching record
+POST http://localhost:3000/teach
+Content-Type: application/json
+
+{
+  "userId": "{{userId}}",
+  "classId": "{{classId}}"
+}
+
+###
+
+### Get all teaching records
+GET http://localhost:3000/teach
+
+###
+
+### Get a specific teaching record by user ID and class ID
+GET http://localhost:3000/teach/{{userId}}/{{classId}}
+
+###
+
+### Delete a teaching record
+DELETE http://localhost:3000/teach/{{userId}}/{{classId}}

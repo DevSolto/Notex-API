@@ -1,0 +1,34 @@
+### Create a new class
+POST http://localhost:3000/classes
+Content-Type: application/json
+
+{
+  "code": "cl043",
+  "period": 2
+}
+
+###
+
+### Get all classes
+GET http://localhost:3000/classes
+
+###
+
+### Get a specific class by ID
+GET http://localhost:3000/classes/cm1f8c8k4000011lmf0jiv32c
+
+###
+
+### Update a class
+PATCH http://localhost:3000/classes/{{classId}}
+Content-Type: application/json
+
+{
+  "code": "CLS002",
+  "period": 2
+}
+
+###
+
+### Delete a class
+DELETE http://localhost:3000/classes/{{classId}}
