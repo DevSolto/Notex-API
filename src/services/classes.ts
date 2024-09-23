@@ -14,7 +14,6 @@ export async function createClassService(createClassParams: CreateClassParams) {
     const createClass = await createClassModel({
         ...createClassParams
     })
-
     return createClass
 }
 

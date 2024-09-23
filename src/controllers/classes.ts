@@ -11,6 +11,7 @@ classesController.get('/classes', async (req, res) => {
 })
 
 classesController.get('/classes/:id', async (req, res) => {
+classesController.get('/classes/:id', async (req, res) => {
     const classId = req.params.id
 
     const deletedClass = await getClassesByIdService(classId)
