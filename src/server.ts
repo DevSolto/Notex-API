@@ -12,4 +12,7 @@ app.use(conceptRouter);
 app.use(reportsController);
 app.use(classesController);
 
-app.listen(3000, () => console.log('Servidor rodando na porta 3000'))
+const port = process.env.PORT || 4000;
+
+
+app.listen(port, () => console.log('Servidor rodando na porta ', port))
