@@ -20,7 +20,7 @@ GET http://localhost:3000/classes/cm1f8c8k4000011lmf0jiv32c
 ###
 
 ### Update a class
-PATCH http://localhost:3000/classes/{{classId}}
+PATCH http://localhost:3000/classes/cm1f8c8k4000011lmf0jiv32c
 Content-Type: application/json
 
 {
@@ -31,4 +31,4 @@ Content-Type: application/json
 ###
 
 ### Delete a class
-DELETE http://localhost:3000/classes/{{classId}}
+DELETE http://localhost:3000/classes/cm1f8c8k4000011lmf0jiv32c

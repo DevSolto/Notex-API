@@ -25,16 +25,17 @@ export async function createClassModel(createClassParams: CreateClassParams) {
 export async function updateClassModel(id: string, data: updateClassParams) {
 
     return await prisma.class.update({
-        where:{
+        where: {
             id
         }, data
     })
 }
 
-export async function getClassAndDeleteModel(id: string) {
+
+export async function deleteClassModel(id: string) {
     return await prisma.class.delete({
         where: {
-            id: id
+            id
         }
     })
 }

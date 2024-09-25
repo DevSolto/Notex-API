@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getClassesService, createClassService,  updateClassService, getClassesByIdService, getClassAndDeleteService} from "../services/classes";
+import { getClassesService, createClassService, updateClassService, getClassesByIdService, deleteClassService } from "../services/classes";
 import { createClassSchema, updateClassSchema } from "../schemas/classes";
 import { ZodError } from "zod";
 
@@ -11,9 +11,13 @@ classesController.get('/classes', async (req, res) => {
 })
 
 classesController.get('/classes/:id', async (req, res) => {
+classesController.get('/classes/:id', async (req, res) => {
     const classId = req.params.id
-    const classReturned = await getClassesByIdService(classId)
-    res.send(classReturned)
+
+    const deletedClass = await getClassesByIdService(classId)
+
+    res.send(deletedClass)
+
 })
 
 classesController.post('/classes', async (req, res) => {
@@ -29,12 +33,10 @@ classesController.post('/classes', async (req, res) => {
         }
     }
 })
-
-classesController.patch ('/classes:id', async (req, res) => {
+classesController.patch('/classes/:id', async (req, res) => {
     try {
-        const classId = req.params.id
-        const updateClassParams = updateClassSchema.parse(req.body)
-        const updatedClass = await updateClassService(classId, updateClassParams)
+        const createClassParams = updateClassSchema.parse(req.body)
+        const updatedClass = await updateClassService(req.params.id, createClassParams)
         res.send(updatedClass)
     } catch (error) {
         if (error instanceof ZodError) {
@@ -46,15 +48,12 @@ classesController.patch ('/classes:id', async (req, res) => {
 })
 
 classesController.delete('/classes/:id', async (req, res) => {
-    try {
-        const reportDeleted = await getClassAndDeleteService(req.params.id)
-        res.send(reportDeleted)
-    } catch (error) {
-        if (error instanceof ZodError) {
-            res.status(400).send(error)
-        } else {
-            res.status(500).send(error)
-        }
-    }    
+    const deletedClass = await deleteClassService(req.params.id)
+
+    res.send(deletedClass)
 })
+
+
+
+
 
