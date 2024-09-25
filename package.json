@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build": "tsc",
-    "start": "node dist/index.js",
+    "build": "tsc && npm run start",  
     "prisma": "prisma"
   },
   "keywords": [],
