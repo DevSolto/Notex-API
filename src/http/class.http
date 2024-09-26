@@ -1,26 +1,28 @@
 ### Create a new class
-POST http://localhost:3000/classes
+POST http://localhost:4000/classes
 Content-Type: application/json
 
 {
-  "code": "cl043",
+  "title": "Titulo da turma",
+  "code": "code0001",
+  "year": "2024",
   "period": 2
 }
 
 ###
 
 ### Get all classes
-GET http://localhost:3000/classes
+GET http://localhost:4000/classes
 
 ###
 
 ### Get a specific class by ID
-GET http://localhost:3000/classes/cm1f8c8k4000011lmf0jiv32c
+GET http://localhost:4000/classes/cm1f8c8k4000011lmf0jiv32c
 
 ###
 
 ### Update a class
-PATCH http://localhost:3000/classes/cm1f8c8k4000011lmf0jiv32c
+PATCH http://localhost:4000/classes/cm1f8c8k4000011lmf0jiv32c
 Content-Type: application/json
 
 {
@@ -31,4 +33,4 @@ Content-Type: application/json
 ###
 
 ### Delete a class
-DELETE http://localhost:3000/classes/cm1f8c8k4000011lmf0jiv32c
+DELETE http://localhost:4000/classes/cm1f8c8k4000011lmf0jiv32c
