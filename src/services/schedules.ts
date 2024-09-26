@@ -13,6 +13,11 @@ export async function getSchedulesByIdService(id: string) {
     return await getSchedulesByIdModel(id)
 }
 
-export async function createSchedulesService(createSchedulesParams: CreateSchedulesParams {
+export async function createSchedulesService(createSchedulesParams: CreateSchedulesParams) {
     
-})
+    const createSchedule = await CreateSchedulesModel({
+        ...createSchedulesParams
+    });
+
+    return createSchedule
+}
