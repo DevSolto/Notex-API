@@ -22,3 +22,21 @@ export async function CreateSchedulesModel(createSchedulesParams: CreateSchedule
         data: createSchedulesParams
     })
 }
+
+export async function updateScheduleModel(id: string, data: UpdateSchedulesParams) {
+
+    return await prisma.schedule.update({
+        where: {
+            id
+        },
+        data
+    })
+}
+
+export async function getScheduleAndDeleteModel(id: string) {
+    return await prisma.schedule.delete({
+        where: {
+            id: id
+        }
+    })
+}
