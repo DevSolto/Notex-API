@@ -59,7 +59,9 @@ model Report {
 
 model Class {
   id     String @id @default(cuid())
-  code   String
+  title  String
+  code   String @unique
+  year   String
   period Int
 
   Schedule Schedule[]

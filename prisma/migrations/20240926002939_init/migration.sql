@@ -7,6 +7,7 @@ CREATE TABLE "Users" (
     "password" TEXT NOT NULL,
     "role" TEXT NOT NULL,
     "phone" TEXT NOT NULL,
+    "isActive" BOOLEAN NOT NULL DEFAULT true,
 
     CONSTRAINT "Users_pkey" PRIMARY KEY ("id")
 );
@@ -35,7 +36,9 @@ CREATE TABLE "Report" (
 -- CreateTable
 CREATE TABLE "Class" (
     "id" TEXT NOT NULL,
+    "title" TEXT NOT NULL,
     "code" TEXT NOT NULL,
+    "year" TEXT NOT NULL,
     "period" INTEGER NOT NULL,
 
     CONSTRAINT "Class_pkey" PRIMARY KEY ("id")
@@ -93,6 +96,9 @@ CREATE UNIQUE INDEX "Users_cpf_key" ON "Users"("cpf");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Users_phone_key" ON "Users"("phone");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Class_code_key" ON "Class"("code");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Studing_userId_classId_key" ON "Studing"("userId", "classId");
