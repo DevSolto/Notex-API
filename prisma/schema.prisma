@@ -23,6 +23,9 @@ model Users {
   phone    String  @unique
   isActive Boolean @default(true)
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   Schedule        Schedule[]
   creatingConcept Concept[]  @relation("creator")
   Concept         Concept[]  @relation("student")
@@ -37,9 +40,11 @@ model Users {
 }
 
 model Concept {
-  id      String   @id @default(cuid())
-  url     String
-  creatAt DateTime @default(now())
+  id  String @id @default(cuid())
+  url String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   creatorId String
   creator   Users? @relation("creator", fields: [creatorId], references: [id])
@@ -49,10 +54,12 @@ model Concept {
 }
 
 model Report {
-  id          String   @id @default(cuid())
+  id          String @id @default(cuid())
   title       String
   description String
-  createAt    DateTime @default(now())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   UserReportd UserReportd[]
 }
@@ -63,6 +70,9 @@ model Class {
   code   String @unique
   year   String
   period Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   Schedule Schedule[]
 
@@ -77,13 +87,18 @@ model Subject {
   id   String @id @default(cuid())
   name String
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   SubjectClass SubjectClass[]
 }
 
 model Schedule {
-  id       String   @id @default(cuid())
-  url      String
-  createAt DateTime @default(now())
+  id  String @id @default(cuid())
+  url String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   creatorId String
   creator   Users? @relation(fields: [creatorId], references: [id])
@@ -99,6 +114,9 @@ model Studing {
   classId String
   class   Class? @relation(fields: [classId], references: [id])
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@unique([userId, classId])
 }
 
@@ -108,6 +126,9 @@ model Teach {
 
   classId String
   class   Class? @relation(fields: [classId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@unique([userId, classId])
 }
@@ -122,6 +143,9 @@ model SubjectClass {
   subjectId String
   subject   Subject? @relation(fields: [subjectId], references: [id])
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@unique([userId, classId, subjectId])
 }
 
@@ -131,6 +155,9 @@ model UserReportd {
 
   reportId String
   report   Report? @relation(fields: [reportId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@unique([userId, reportId])
 }

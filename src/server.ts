@@ -6,7 +6,7 @@ import { reportsController } from './controllers/reports';
 import { classesController } from './controllers/classes';
 
 const app = express();
-app.use(cors()); // Habilite o CORS
+app.use(cors()); 
 app.use(express.json());
 
 app.use(userRouter);

@@ -1,9 +1,33 @@
 import { createClassModel, getClassesModel, getClassesByIdModel, updateClassModel, deleteClassModel } from "../models/classes";
 import { CreateClassParams, updateClassParams } from "../types/class";
 
-export async function getClassesService() {
-    return await getClassesModel();
+
+export async function getClassesService({
+    page = 1,
+    limit = 10,
+    year,
+    orderBy = 'title',
+    order = 'asc'
+}: {
+    page?: number;
+    limit?: number;
+    year?: string;
+    orderBy?: string;
+    order?: 'asc' | 'desc'
+}) {
+    if (orderBy && orderBy === 'all') {
+        orderBy = ''
+    }
+
+    return await getClassesModel({
+        page,
+        limit,
+        year,
+        orderBy,
+        order,
+    });
 }
+
 
 export async function getClassesByIdService(id: string) {
     return await getClassesByIdModel(id)
