@@ -14,14 +14,15 @@ datasource db {
 }
 
 model Users {
-  id       String  @id @default(cuid())
-  name     String
-  email    String  @unique
-  cpf      String  @unique
-  password String
-  role     String
-  phone    String  @unique
-  isActive Boolean @default(true)
+  id        String  @id @default(cuid())
+  avatarUrl String
+  name      String
+  email     String  @unique
+  cpf       String  @unique
+  password  String
+  role      String
+  phone     String  @unique
+  isActive  Boolean @default(true)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -34,7 +35,7 @@ model Users {
 
   UserReportd UserReportd[]
 
-  Studing Studing[]
+  Studing Studying[]
 
   Teach Teach[]
 }
@@ -78,7 +79,7 @@ model Class {
 
   SubjectClass SubjectClass[]
 
-  Studing Studing[]
+  Studing Studying[]
 
   Teach Teach[]
 }
@@ -107,7 +108,7 @@ model Schedule {
   class   Class? @relation(fields: [classId], references: [id])
 }
 
-model Studing {
+model Studying {
   userId String
   user   Users? @relation(fields: [userId], references: [id])
 

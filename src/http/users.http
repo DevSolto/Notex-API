@@ -3,12 +3,13 @@ POST http://localhost:4000/users
 Content-Type: application/json
 
 {
-  "name": "Santiago Souto",
-  "email": "santiago@example.com",
-  "cpf": "338.815.930-04",
+  "name": "Lygia Negreiros",
+  "avatarUrl":"https://github.com/DevSolto.png",
+  "email": "lygia@example.com",
+  "cpf": "699.185.820-06",
   "password": "strongpassword123",
-  "role": "TEACHER",
-  "phone": "565191080",
+  "role": "STUDENT",
+  "phone": "561325191080",
   "isActive": true
 }
 
@@ -38,3 +39,395 @@ Content-Type: application/json
 
 ### Delete a user
 DELETE http://localhost:4000/users/{{userId}}
+
+
+### Buscar todos os usuários com paginação e ordenação padrão
+GET http://localhost:4000/users?page=1&limit=10
+
+### Buscar usuários filtrados por nome, ordenados por email em ordem ascendente
+GET http://localhost:4000/users?page=1&limit=5&name=John&orderBy=email&order=asc
+
+### Buscar usuários filtrados por CPF e apenas ativos
+GET http://localhost:4000/users?page=1&limit=10&cpf=12345678901&isActive=true
+
+### Buscar usuários ordenados por data de criação em ordem descendente
+GET http://localhost:4000/users?page=2&limit=5&orderBy=createdAt&order=desc
+
+### Buscar usuários filtrados por nome e email, com ordenação por nome em ordem ascendente
+GET http://localhost:4000/users?page=1&limit=10&name=John&email=john.doe@example.com&orderBy=name&order=asc
+
+
+### 1
+POST http://localhost:4000/users
+Content-Type: application/json
+
+{
+  "name": "Lygia Negreiros",
+  "avatarUrl":"https://github.com/DevSolto.png",
+  "email": "lygia@example.com",
+  "cpf": "699.185.820-06",
+  "password": "strongpassword123",
+  "role": "STUDENT",
+  "phone": "561325191080",
+  "isActive": true
+}
+
+### 2
+POST http://localhost:4000/users
+Content-Type: application/json
+
+{
+  "name": "Paulo Silva",
+  "avatarUrl":"https://github.com/DevSolto.png",
+  "email": "paulo@example.com",
+  "cpf": "563.539.990-89",
+  "password": "password456",
+  "role": "TEACHER",
+  "phone": "561325191081",
+  "isActive": true
+}
+
+### 3
+POST http://localhost:4000/users
+Content-Type: application/json
+
+{
+  "name": "Mariana Costa",
+  "avatarUrl":"https://github.com/DevSolto.png",
+  "email": "mariana@example.com",
+  "cpf": "915.739.010-08",
+  "password": "mariana987",
+  "role": "STUDENT",
+  "phone": "561325191082",
+  "isActive": true
+}
+
+### 4
+POST http://localhost:4000/users
+Content-Type: application/json
+
+{
+  "name": "Roberto Almeida",
+  "avatarUrl":"https://github.com/DevSolto.png",
+  "email": "roberto@example.com",
+  "cpf": "229.765.630-04",
+  "password": "roberto123",
+  "role": "STUDENT",
+  "phone": "561325191083",
+  "isActive": true
+}
+
+### 5
+POST http://localhost:4000/users
+Content-Type: application/json
+
+{
+  "name": "Clara Lopes",
+  "avatarUrl":"https://github.com/DevSolto.png",
+  "email": "clara@example.com",
+  "cpf": "302.440.350-75",
+  "password": "claralopes456",
+  "role": "TEACHER",
+  "phone": "561325191084",
+  "isActive": true
+}
+
+### 6
+POST http://localhost:4000/users
+Content-Type: application/json
+
+{
+  "name": "Diego Pereira",
+  "avatarUrl":"https://github.com/DevSolto.png",
+  "email": "diego@example.com",
+  "cpf": "487.810.160-18",
+  "password": "diego789",
+  "role": "STUDENT",
+  "phone": "561325191085",
+  "isActive": true
+}
+
+### 7
+POST http://localhost:4000/users
+Content-Type: application/json
+
+{
+  "name": "Julia Martins",
+  "avatarUrl":"https://github.com/DevSolto.png",
+  "email": "julia@example.com",
+  "cpf": "353.372.260-02",
+  "password": "julia123",
+  "role": "TEACHER",
+  "phone": "561325191086",
+  "isActive": true
+}
+
+### 8
+POST http://localhost:4000/users
+Content-Type: application/json
+
+{
+  "name": "Pedro Silva",
+  "avatarUrl":"https://github.com/DevSolto.png",
+  "email": "pedro@example.com",
+  "cpf": "012.789.380-60",
+  "password": "pedro456",
+  "role": "STUDENT",
+  "phone": "561325191087",
+  "isActive": true
+}
+
+### 9
+POST http://localhost:4000/users
+Content-Type: application/json
+
+{
+  "name": "Fernanda Souza",
+  "avatarUrl":"https://github.com/DevSolto.png",
+  "email": "fernanda@example.com",
+  "cpf": "469.827.750-70",
+  "password": "fernanda789",
+  "role": "TEACHER",
+  "phone": "561325191088",
+  "isActive": true
+}
+
+### 10
+POST http://localhost:4000/users
+Content-Type: application/json
+
+{
+  "name": "Lucas Gomes",
+  "avatarUrl":"https://github.com/DevSolto.png",
+  "email": "lucas@example.com",
+  "cpf": "727.929.260-74",
+  "password": "lucas123",
+  "role": "STUDENT",
+  "phone": "561325191089",
+  "isActive": true
+}
+
+### 11
+POST http://localhost:4000/users
+Content-Type: application/json
+
+{
+  "name": "Alice Ribeiro",
+  "avatarUrl":"https://github.com/DevSolto.png",
+  "email": "alice@example.com",
+  "cpf": "338.474.530-25",
+  "password": "alice456",
+  "role": "TEACHER",
+  "phone": "561325191090",
+  "isActive": true
+}
+
+### 12
+POST http://localhost:4000/users
+Content-Type: application/json
+
+{
+  "name": "Gabriel Nascimento",
+  "avatarUrl":"https://github.com/DevSolto.png",
+  "email": "gabriel@example.com",
+  "cpf": "026.625.790-99",
+  "password": "gabriel789",
+  "role": "STUDENT",
+  "phone": "561325191091",
+  "isActive": true
+}
+
+### 13
+POST http://localhost:4000/users
+Content-Type: application/json
+
+{
+  "name": "Isabella Lima",
+  "avatarUrl":"https://github.com/DevSolto.png",
+  "email": "isabella@example.com",
+  "cpf": "537.847.010-27",
+  "password": "isabella123",
+  "role": "TEACHER",
+  "phone": "561325191092",
+  "isActive": true
+}
+
+### 14
+POST http://localhost:4000/users
+Content-Type: application/json
+
+{
+  "name": "Thiago Fernandes",
+  "avatarUrl":"https://github.com/DevSolto.png",
+  "email": "thiago@example.com",
+  "cpf": "324.502.920-98",
+  "password": "thiago456",
+  "role": "STUDENT",
+  "phone": "561325191093",
+  "isActive": true
+}
+
+### 15
+POST http://localhost:4000/users
+Content-Type: application/json
+
+{
+  "name": "Luiza Cardoso",
+  "avatarUrl":"https://github.com/DevSolto.png",
+  "email": "luiza1@example.com",
+  "cpf": "865.431.700-00",
+  "password": "luiza789",
+  "role": "STUDENT",
+  "phone": "55555555555",
+  "isActive": true
+}
+
+### 16
+POST http://localhost:4000/users
+Content-Type: application/json
+
+{
+  "name": "Bruno Azevedo",
+  "avatarUrl":"https://github.com/DevSolto.png",
+  "email": "bruno@example.com",
+  "cpf": "747.392.570-92",
+  "password": "bruno123",
+  "role": "STUDENT",
+  "phone": "561325191095",
+  "isActive": true
+}
+
+### 17
+POST http://localhost:4000/users
+Content-Type: application/json
+
+{
+  "name": "Eduarda Santos",
+  "avatarUrl":"https://github.com/DevSolto.png",
+  "email": "eduarda@example.com",
+  "cpf": "221.357.630-04",
+  "password": "eduarda456",
+  "role": "TEACHER",
+  "phone": "561325191096",
+  "isActive": true
+}
+
+### 18
+POST http://localhost:4000/users
+Content-Type: application/json
+
+{
+  "name": "Leonardo Barros",
+  "avatarUrl":"https://github.com/DevSolto.png",
+  "email": "leonardo@example.com",
+  "cpf": "617.798.160-73",
+  "password": "leonardo789",
+  "role": "STUDENT",
+  "phone": "561325191097",
+  "isActive": true
+}
+
+### 19
+POST http://localhost:4000/users
+Content-Type: application/json
+
+{
+  "name": "Ana Clara Oliveira",
+  "avatarUrl":"https://github.com/DevSolto.png",
+  "email": "anaclara@example.com",
+  "cpf": "817.450.590-32",
+  "password": "anaclara123",
+  "role": "TEACHER",
+  "phone": "561325191098",
+  "isActive": true
+}
+
+### 20
+POST http://localhost:4000/users
+Content-Type: application/json
+
+{
+  "name": "Mateus Moreira",
+  "avatarUrl":"https://github.com/DevSolto.png",
+  "email": "mateus@example.com",
+  "cpf": "381.290.560-46",
+  "password": "mateus456",
+  "role": "STUDENT",
+  "phone": "561325191099",
+  "isActive": true
+}
+
+### 21
+POST http://localhost:4000/users
+Content-Type: application/json
+
+{
+  "name": "Rafael Vieira",
+  "avatarUrl":"https://github.com/DevSolto.png",
+  "email": "rafael@example.com",
+  "cpf": "002.506.060-03",
+  "password": "rafael789",
+  "role": "STUDENT",
+  "phone": "561325191100",
+  "isActive": true
+}
+
+### 22
+POST http://localhost:4000/users
+Content-Type: application/json
+
+{
+  "name": "Sofia Batista",
+  "avatarUrl":"https://github.com/DevSolto.png",
+  "email": "sofia@example.com",
+  "cpf": "128.256.830-27",
+  "password": "sofia123",
+  "role": "TEACHER",
+  "phone": "561325191101",
+  "isActive": true
+}
+
+### 23
+POST http://localhost:4000/users
+Content-Type: application/json
+
+{
+  "name": "Guilherme Rocha",
+  "avatarUrl":"https://github.com/DevSolto.png",
+  "email": "guilherme@example.com",
+  "cpf": "656.975.650-89",
+  "password": "guilherme456",
+  "role": "STUDENT",
+  "phone": "561325191102",
+  "isActive": true
+}
+
+### 24
+POST http://localhost:4000/users
+Content-Type: application/json
+
+{
+  "name": "Helena Pinto",
+  "avatarUrl":"https://github.com/DevSolto.png",
+  "email": "helena@example.com",
+  "cpf": "596.353.790-80",
+  "password": "helena789",
+  "role": "STUDENT",
+  "phone": "561325191103",
+  "isActive": true
+}
+
+### 25
+POST http://localhost:4000/users
+Content-Type: application/json
+
+{
+  "name": "Felipe Dias",
+  "avatarUrl":"https://github.com/DevSolto.png",
+  "email": "felipe@example.com",
+  "cpf": "177.378.090-58",
+  "password": "felipe123",
+  "role": "STUDENT",
+  "phone": "561325191104",
+  "isActive": true
+}
