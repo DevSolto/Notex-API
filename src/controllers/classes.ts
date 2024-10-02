@@ -6,9 +6,33 @@ import { ZodError } from "zod";
 export const classesController = Router();
 
 classesController.get('/classes', async (req, res) => {
-    const classes = await getClassesService()
-    res.send(classes)
-})
+    try {
+        const { page = 1, limit = 10, year, orderBy = 'id', order = 'asc' } = req.query;
+
+        const allowedOrderFields = ['id', 'title', 'code', 'year', 'createdAt'];
+        const orderByField = allowedOrderFields.includes(orderBy as string) ? orderBy as string : 'id';
+
+        const pageNumber = parseInt(page as string, 10);
+        const limitNumber = parseInt(limit as string, 10);
+        const yearNumber = year ? year as string : undefined;
+        const orderValue = order as string === 'desc' ? 'desc' : 'asc';
+
+        const classes = await getClassesService({
+            page: pageNumber,
+            limit: limitNumber,
+            year: yearNumber,
+            orderBy: orderByField,
+            order: orderValue,
+        });
+
+        res.send(classes);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ error: 'An error occurred while fetching classes' });
+    }
+});
+
+
 
 classesController.get('/classes/:id', async (req, res) => {
     const classId = req.params.id

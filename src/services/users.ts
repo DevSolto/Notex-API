@@ -1,11 +1,10 @@
 import { createUserModel, getUserByCPFModel, getUserByEmailModel, getUserByPhoneModel, getUsersModel, updateUserModel } from "../models/users";
-import { CreateUserParams, UpdateUserParams } from "../types/user";
+import { CreateUserParams, GetUsersParams, UpdateUserParams } from "../types/user";
 import bcrypt from "bcrypt"
 
-export async function getUsersServices() {
-
-    return await getUsersModel()
-}
+export async function getUsersServices(params: GetUsersParams) {
+    return await getUsersModel(params);
+  }
 export async function createUserService(createUserParams: CreateUserParams) {
 
     const isEmailInUse = await getUserByEmailModel(createUserParams.email)

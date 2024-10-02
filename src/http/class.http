@@ -3,30 +3,65 @@ POST http://localhost:4000/classes
 Content-Type: application/json
 
 {
-  "title": "Titulo da turma",
-  "code": "code0001",
+  "title": "Turma esquecida",
+  "code": "0000000000000",
   "year": "2024",
   "period": 2
 }
 
 ###
 
-### Get all classes
+### Testando a rota sem parâmetros (retorna a página 1 com limite padrão de 10 itens)
 GET http://localhost:4000/classes
+Content-Type: application/json
 
 ###
 
+### Testando a rota com paginação (página 2, 5 itens por página)
+GET http://localhost:4000/classes?page=2&limit=2
+Content-Type: application/json
+
+###
+
+### Testando a rota com filtro pelo ano (somente classes do ano 2024)
+GET http://localhost:4000/classes?year=
+Content-Type: application/json
+
+###
+
+### Testando a rota com paginação e filtro pelo ano (página 1, 10 itens por página, ano 2023)
+GET http://localhost:4000/classes?page=1&limit=10&year=2023
+Content-Type: application/json
+
+###
+
+### Testando a rota com ordenação por 'title' em ordem ascendente
+GET http://localhost:4000/classes?orderBy=title&order=asc
+Content-Type: application/json
+
+###
+
+### Testando a rota com ordenação por 'createdAt' em ordem descendente
+GET http://localhost:4000/classes?orderBy=createdAt&order=desc
+Content-Type: application/json
+
+###
+
+### Testando a rota com paginação, filtro pelo ano e ordenação (página 1, 5 itens por página, ano 2022, ordenado por título descendente)
+GET http://localhost:4000/classes?page=1&limit=5&year=2022&orderBy=title&order=desc
+Content-Type: application/json
+
 ### Get a specific class by ID
-GET http://localhost:4000/classes/cm1f8c8k4000011lmf0jiv32c
+GET http://localhost:4000/classes/cm1ilyqrh0000oz5no72sjd16
 
 ###
 
 ### Update a class
-PATCH http://localhost:4000/classes/cm1f8c8k4000011lmf0jiv32c
+PATCH http://localhost:4000/classes/cm1ilyqrh0000oz5no72sjd16
 Content-Type: application/json
 
 {
-  "code": "CLS002",
+  "code": "CLS00552",
   "period": 2
 }
 

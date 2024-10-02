@@ -8,6 +8,8 @@ CREATE TABLE "Users" (
     "role" TEXT NOT NULL,
     "phone" TEXT NOT NULL,
     "isActive" BOOLEAN NOT NULL DEFAULT true,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Users_pkey" PRIMARY KEY ("id")
 );
@@ -16,7 +18,8 @@ CREATE TABLE "Users" (
 CREATE TABLE "Concept" (
     "id" TEXT NOT NULL,
     "url" TEXT NOT NULL,
-    "creatAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
     "creatorId" TEXT NOT NULL,
     "studentId" TEXT NOT NULL,
 
@@ -28,7 +31,8 @@ CREATE TABLE "Report" (
     "id" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "description" TEXT NOT NULL,
-    "createAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Report_pkey" PRIMARY KEY ("id")
 );
@@ -40,6 +44,8 @@ CREATE TABLE "Class" (
     "code" TEXT NOT NULL,
     "year" TEXT NOT NULL,
     "period" INTEGER NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Class_pkey" PRIMARY KEY ("id")
 );
@@ -48,6 +54,8 @@ CREATE TABLE "Class" (
 CREATE TABLE "Subject" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Subject_pkey" PRIMARY KEY ("id")
 );
@@ -56,7 +64,8 @@ CREATE TABLE "Subject" (
 CREATE TABLE "Schedule" (
     "id" TEXT NOT NULL,
     "url" TEXT NOT NULL,
-    "createAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
     "creatorId" TEXT NOT NULL,
     "classId" TEXT NOT NULL,
 
@@ -66,26 +75,34 @@ CREATE TABLE "Schedule" (
 -- CreateTable
 CREATE TABLE "Studing" (
     "userId" TEXT NOT NULL,
-    "classId" TEXT NOT NULL
+    "classId" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL
 );
 
 -- CreateTable
 CREATE TABLE "Teach" (
     "userId" TEXT NOT NULL,
-    "classId" TEXT NOT NULL
+    "classId" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL
 );
 
 -- CreateTable
 CREATE TABLE "SubjectClass" (
     "userId" TEXT NOT NULL,
     "classId" TEXT NOT NULL,
-    "subjectId" TEXT NOT NULL
+    "subjectId" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL
 );
 
 -- CreateTable
 CREATE TABLE "UserReportd" (
     "userId" TEXT NOT NULL,
-    "reportId" TEXT NOT NULL
+    "reportId" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL
 );
 
 -- CreateIndex

@@ -14,14 +14,18 @@ datasource db {
 }
 
 model Users {
-  id       String  @id @default(cuid())
-  name     String
-  email    String  @unique
-  cpf      String  @unique
-  password String
-  role     String
-  phone    String  @unique
-  isActive Boolean @default(true)
+  id        String  @id @default(cuid())
+  avatarUrl String
+  name      String
+  email     String  @unique
+  cpf       String  @unique
+  password  String
+  role      String
+  phone     String  @unique
+  isActive  Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   Schedule        Schedule[]
   creatingConcept Concept[]  @relation("creator")
@@ -31,15 +35,17 @@ model Users {
 
   UserReportd UserReportd[]
 
-  Studing Studing[]
+  Studing Studying[]
 
   Teach Teach[]
 }
 
 model Concept {
-  id      String   @id @default(cuid())
-  url     String
-  creatAt DateTime @default(now())
+  id  String @id @default(cuid())
+  url String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   creatorId String
   creator   Users? @relation("creator", fields: [creatorId], references: [id])
@@ -49,10 +55,12 @@ model Concept {
 }
 
 model Report {
-  id          String   @id @default(cuid())
+  id          String @id @default(cuid())
   title       String
   description String
-  createAt    DateTime @default(now())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   UserReportd UserReportd[]
 }
@@ -64,11 +72,14 @@ model Class {
   year   String
   period Int
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   Schedule Schedule[]
 
   SubjectClass SubjectClass[]
 
-  Studing Studing[]
+  Studing Studying[]
 
   Teach Teach[]
 }
@@ -77,13 +88,18 @@ model Subject {
   id   String @id @default(cuid())
   name String
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   SubjectClass SubjectClass[]
 }
 
 model Schedule {
-  id       String   @id @default(cuid())
-  url      String
-  createAt DateTime @default(now())
+  id  String @id @default(cuid())
+  url String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   creatorId String
   creator   Users? @relation(fields: [creatorId], references: [id])
@@ -92,12 +108,15 @@ model Schedule {
   class   Class? @relation(fields: [classId], references: [id])
 }
 
-model Studing {
+model Studying {
   userId String
   user   Users? @relation(fields: [userId], references: [id])
 
   classId String
   class   Class? @relation(fields: [classId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@unique([userId, classId])
 }
@@ -108,6 +127,9 @@ model Teach {
 
   classId String
   class   Class? @relation(fields: [classId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@unique([userId, classId])
 }
@@ -122,6 +144,9 @@ model SubjectClass {
   subjectId String
   subject   Subject? @relation(fields: [subjectId], references: [id])
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@unique([userId, classId, subjectId])
 }
 
@@ -131,6 +156,9 @@ model UserReportd {
 
   reportId String
   report   Report? @relation(fields: [reportId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@unique([userId, reportId])
 }
