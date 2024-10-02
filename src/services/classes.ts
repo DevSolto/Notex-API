@@ -1,5 +1,5 @@
 import { createClassModel, getClassesModel, getClassesByIdModel, updateClassModel, deleteClassModel } from "../models/classes";
-import { CreateClassParams, updateClassParams } from "../types/class";
+import { CreateClassParams, UpdateClassParams } from "../types/class";
 
 
 export async function getClassesService({
@@ -41,7 +41,7 @@ export async function createClassService(createClassParams: CreateClassParams) {
     return createClass
 }
 
-export async function updateClassService(id: string, updateClassParams: updateClassParams) {
+export async function updateClassService(id: string, updateClassParams: UpdateClassParams) {
     if (updateClassParams.code) {
         const isCodeInUse = await getClassesByIdModel(updateClassParams.code)
         if (isCodeInUse) {

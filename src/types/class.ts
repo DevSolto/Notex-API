@@ -5,7 +5,7 @@ export type CreateClassParams = {
     period: number
 }
 
-export type updateClassParams = {
+export type UpdateClassParams = {
     code?: string
     title?: string
     year?: string

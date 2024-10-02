@@ -1,10 +1,10 @@
 ### Create a new studying record
-POST http://localhost:3000/studing
+POST https://redesigned-space-halibut-6q54j964xrgcxrv6-4000.app.github.dev/studings
 Content-Type: application/json
 
 {
-  "userId": "{{userId}}",
-  "classId": "{{classId}}"
+  "userId": "cm1p48x8500059wjnz9rcabvv",
+  "classId": "cm1mnpepx0007vla9w6a8zgl0"
 }
 
 ###
