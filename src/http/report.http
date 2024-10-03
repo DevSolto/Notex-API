@@ -1,5 +1,5 @@
 ### Create a new report
-POST http://localhost:3000/reports
+POST http://localhost:4000/reports
 Content-Type: application/json
 
 {
@@ -7,28 +7,132 @@ Content-Type: application/json
   "description": "Report Description"
 }
 
-###
-
-### Get all reports
-GET http://localhost:3000/reports
-
-###
-
-### Get a specific report by ID
-GET http://localhost:3000/reports/{{reportId}}
+# Testando a rota /reports sem parâmetros (usa os valores padrão)
+GET http://localhost:4000/reports
+Content-Type: application/json
 
 ###
 
-### Update a report
-PATCH http://localhost:3000/reports/{{reportId}}
+# Testando a rota /reports com paginação (page 2, limit 5)
+GET http://localhost:4000/reports?page=1&limit=5
+Content-Type: application/json
+
+###
+
+# Testando a rota /reports com ordenação por título decrescente (desc)
+GET http://localhost:4000/reports?orderBy=title&order=desc
+Content-Type: application/json
+
+###
+
+# Testando a rota /reports com paginação e ordenação (page 3, limit 10, ordenado por data de criação ascendente)
+GET http://localhost:4000/reports?page=1&limit=10&orderBy=createdAt&order=asc
+
+
+# Criando Relatório 1: Desempenho Acadêmico
+POST http://localhost:4000/reports
 Content-Type: application/json
 
 {
-  "title": "Updated Report Title",
-  "description": "Updated Report Description"
+  "title": "Relatório de Desempenho Acadêmico - 1º Bimestre",
+  "description": "Análise do desempenho acadêmico dos alunos do ensino fundamental no 1º bimestre."
 }
 
 ###
 
-### Delete a report
-DELETE http://localhost:3000/reports/{{reportId}}
+# Criando Relatório 2: Frequência dos Alunos
+POST http://localhost:4000/reports
+Content-Type: application/json
+
+{
+  "title": "Relatório de Desempenho Acadêmico - 1º Bimestre",
+  "description": "Análise do desempenho acadêmico dos alunos do ensino fundamental no 1º bimestre."
+}
+
+###
+
+# Criando Relatório 3: Atividades Extracurriculares
+POST http://localhost:4000/reports
+Content-Type: application/json
+
+{
+  "title": "Relatório de Atividades Extracurriculares - 2024",
+  "description": "Relatório das atividades extracurriculares realizadas pelos alunos durante o ano letivo de 2024."
+}
+
+###
+
+# Criando Relatório 4: Avaliação de Professores
+POST http://localhost:4000/reports
+Content-Type: application/json
+
+{
+  "title": "Relatório de Avaliação de Professores - 2024",
+  "description": "Avaliação semestral de desempenho dos professores, com base em feedback de alunos e pais."
+}
+
+###
+
+# Criando Relatório 5: Infraestrutura Escolar
+POST http://localhost:4000/reports
+Content-Type: application/json
+
+{
+  "title": "Relatório de Infraestrutura Escolar - 2024",
+  "description": "Relatório sobre o estado da infraestrutura escolar, com propostas de melhorias para o próximo semestre."
+}
+
+###
+
+# Criando Relatório 6: Evento Escolar
+POST http://localhost:4000/reports
+Content-Type: application/json
+
+{
+  "title": "Relatório do Evento Anual da Escola - 2024",
+  "description": "Resumo e avaliação do evento anual realizado pela escola, incluindo participação dos alunos e pais."
+}
+
+###
+
+# Criando Relatório 7: Resultados de Provas
+POST http://localhost:4000/reports
+Content-Type: application/json
+
+{
+  "title": "Relatório de Resultados de Provas - 2º Bimestre",
+  "description": "Relatório sobre os resultados das provas realizadas pelos alunos no 2º bimestre."
+}
+
+###
+
+# Criando Relatório 8: Plano Pedagógico
+POST http://localhost:4000/reports
+Content-Type: application/json
+
+{
+  "title": "Relatório de Plano Pedagógico - 2024",
+  "description": "Relatório detalhando as diretrizes do plano pedagógico para o ano letivo de 2024."
+}
+
+###
+
+# Criando Relatório 9: Monitoramento de Alunos
+POST http://localhost:4000/reports
+Content-Type: application/json
+
+{
+  "title": "Relatório de Monitoramento de Alunos - 1º Semestre",
+  "description": "Relatório de monitoramento dos alunos com base em seu desempenho acadêmico e comportamental no 1º semestre."
+}
+
+###
+
+# Criando Relatório 10: Participação dos Pais
+POST http://localhost:4000/reports
+Content-Type: application/json
+
+{
+  "title": "Relatório de Participação dos Pais - 2024",
+  "description": "Análise da participação dos pais em reuniões e atividades escolares durante o ano de 2024."
+}
