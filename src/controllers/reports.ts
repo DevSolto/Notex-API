@@ -24,8 +24,6 @@ reportsController.get('/reports', async (req, res) => {
     }
 });
 
-
-
 reportsController.get('/reports/:id', async (req, res) => {
     const reportsId = req.params.id
     const reportsReturned = await getReportByIdService(reportsId)

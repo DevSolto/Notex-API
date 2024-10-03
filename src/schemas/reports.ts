@@ -13,4 +13,5 @@ export const updateReportSchema = z.object({
 export const updateReportSchema = z.object({
     title: z.string().min(1, "O título é obrigatório!").optional(),
     description: z.string().min(1, "A descrição é obrigatória!").optional()
+    creatorId: z.string().cuid().optional()
 })

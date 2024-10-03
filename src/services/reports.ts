@@ -1,16 +1,6 @@
 import { createReportModel, getReportByIdModel ,getReportsModel, getReportAndDeleteModel, updateReportModel } from "../models/reports";
 import { CreateReportParams, UpdateReportParams } from "../types/report";
 
-
-export async function getReportsServices() {
-
-    return await getReportsModel();
-}
-
-export async function getReportByIdService(id: string) {
-
-    return await getReportByIdModel(id)
-}
 export async function getReportsServices({
     page = 1,
     limit = 10,
@@ -30,7 +20,8 @@ export async function getReportsServices({
     });
   }
 
-export async function createReportService(createReportParams: CreateReportParams) {
+    return createdReport;
+}
 
     const createdReport = await createReportModel({
         ...createReportParams
