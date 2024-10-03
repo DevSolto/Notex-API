@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client"
-import { CreateClassParams, updateClassParams } from "../types/class"
+import { CreateClassParams, UpdateClassParams } from "../types/class"
 
 const prisma = new PrismaClient()
 
@@ -59,7 +59,7 @@ export async function createClassModel(createClassParams: CreateClassParams) {
     })
 }
 
-export async function updateClassModel(id: string, data: updateClassParams) {
+export async function updateClassModel(id: string, data: UpdateClassParams) {
 
     return await prisma.class.update({
         where: {
