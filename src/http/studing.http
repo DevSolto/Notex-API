@@ -1,23 +1,27 @@
 ### Create a new studying record
-POST http://localhost:3000/studing
+POST http://localhost:4000/studing
 Content-Type: application/json
 
 {
-  "userId": "{{userId}}",
-  "classId": "{{classId}}"
+  "usersId": [
+    "cm1p486hq00029wjnzzn9ain8",
+    "cm1p486hq00029wjnzzn9ain8",
+    "cm1p486hq00029wjnzzn9ain8"
+  ],
+  "classId": "cm1mnp7h90006vla9fdq71vgn"
 }
 
 ###
 
 ### Get all studying records
-GET http://localhost:3000/studing
+GET http://localhost:4000/studing
 
 ###
 
 ### Get a specific studying record by user ID and class ID
-GET http://localhost:3000/studing/{{userId}}/{{classId}}
+GET http://localhost:4000/studing/{{userId}}/{{classId}}
 
 ###
 
 ### Delete a studying record
-DELETE http://localhost:3000/studing/{{userId}}/{{classId}}
+DELETE http://localhost:4000/studing/{{userId}}/{{classId}}

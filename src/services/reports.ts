@@ -2,17 +2,32 @@ import { createReportModel, getReportsModel, getReportByTitleModel, getReportByI
 import { CreateReportParams } from "../types/report";
 
 
-export async function getReportsServices() {
-    return await getReportsModel();
-}
+export async function getReportsServices({
+    page = 1,
+    limit = 10,
+    orderBy = 'title',
+    order = 'asc',
+  }: {
+    page?: number;
+    limit?: number;
+    orderBy?: string;
+    order?: 'asc' | 'desc';
+  }) {
+    return await getReportsModel({
+      page,
+      limit,
+      orderBy,
+      order,
+    });
+  }
 
 export async function createReportService(createReportParams: CreateReportParams) {
 
-    const Createreport = await createReportModel({
+    const createdReport = await createReportModel({
         ...createReportParams
     });
 
-    return Createreport;
+    return createdReport;
 }
 
 export async function getReportByTitleService(title: string) {
