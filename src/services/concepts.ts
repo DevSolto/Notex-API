@@ -1,10 +1,15 @@
 import { error } from "console";
-import { createConceptModel, getConceptsModel } from "../models/concepts";
+import { createConceptModel, getConceptsModel, getConceptsByIdModel, updateConceptModel, getConceptAndDeleteModel } from "../models/concepts";
 import { getUserByIdModel } from "../models/users";
-import { CreateConceptParams } from "../types/concept";
+import { CreateConceptParams, UpdateConceptParams } from "../types/concept";
+
 
 export async function getConceptsService() {
   return await getConceptsModel()
+}
+
+export async function getConceptsByIdService(id: string) {
+  return await getConceptsByIdModel(id)
 }
 
 export async function createConceptService(createConceptParams: CreateConceptParams) {
@@ -32,4 +37,24 @@ export async function createConceptService(createConceptParams: CreateConceptPar
   } catch (error) {
     throw new Error('Erro ao criar o conceito');
   }
+}
+
+export async function updateConceptService(id: string, updateConceptParams: UpdateConceptParams) {
+  if (updateConceptParams.url) {
+    const isWaiInUse = await getConceptsByIdModel(updateConceptParams.url)
+    if (isWaiInUse) {
+      return ({
+        message: "Esse conceito já está atualizado"
+      })
+    }
+  }
+
+  return await updateConceptModel(id, updateConceptParams)
+}
+
+export async function getConceptAndDeleteService(id: string) {
+
+  const getAndDelete = await getConceptAndDeleteModel(id)
+
+  return getAndDelete
 }

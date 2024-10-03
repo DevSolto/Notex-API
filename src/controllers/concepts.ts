@@ -1,7 +1,8 @@
 import { Router } from "express";
 import { ZodError } from "zod";
-import { createConceptService, getConceptsService } from "../services/concepts";
-import { createConceptsSchema } from "../schemas/concepts";
+import { createConceptService, getConceptsByIdService, getConceptsService, updateConceptService, getConceptAndDeleteService } from "../services/concepts";
+import { createConceptsSchema, updateConceptsSchema } from "../schemas/concepts";
+import { error } from "console";
 
 export const conceptRouter = Router();
 
@@ -14,6 +15,12 @@ conceptRouter.get('/concepts', async (req, res) => {
     res.status(500).send({ message: 'Internal Server Error' });
   }
 });
+
+conceptRouter.get('/concepts/:id', async (req, res) => {
+  const conceptId = req.params.id
+  const conceptReturned = await getConceptsByIdService(conceptId)
+  res.send(conceptReturned)
+})
 
 conceptRouter.post('/concepts', async (req, res) => {
   try {
@@ -40,3 +47,32 @@ conceptRouter.post('/concepts', async (req, res) => {
     }
   }
 });
+
+
+conceptRouter.patch('/concepts/:id', async (req, res) => {
+  try {
+    const conceptId = req.params.id
+    const updateConceptParams = updateConceptsSchema.parse(req.body)
+    const updateConcept = await updateConceptService(conceptId, updateConceptParams)
+    res.send(updateConcept)
+  } catch (error) {
+    if (error instanceof ZodError) {
+      res.status(400).send(error)
+    } else {
+        res.status(500).send(error)
+    }
+  }
+})
+
+conceptRouter.delete('/concepts/:id', async (req, res) => {
+  try {
+    const conceptDeleted = await getConceptAndDeleteService(req.params.id)
+    res.send(conceptDeleted)
+  } catch (error) {
+    if (error instanceof ZodError) {
+      res.status(400).send(error)
+    } else {
+      res.status(500).send(error)
+    }
+  }
+})

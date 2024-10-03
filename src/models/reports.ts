@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client"
-import { CreateReportParams } from "../types/report"
+import { CreateReportParams, UpdateReportParams } from "../types/report"
 
 const prisma = new PrismaClient()
 
@@ -8,25 +8,27 @@ export async function getReportsModel() {
     return await prisma.report.findMany()
 }
 
+export async function getReportByIdModel(id: string) {
+    return await prisma.report.findUnique({
+        where: {
+            id
+        }
+    })
+}
+
 export async function createReportModel(createReportParams: CreateReportParams) {
     return prisma.report.create({
         data: createReportParams
     })
 }
 
-export async function getReportByTitleModel(title: string) {
-    return await prisma.report.findFirst({
-        where: {
-            title: title
-        },
-    });
-}
+export async function updateReportModel(id: string, data: UpdateReportParams) {
 
-export async function getReportByIdModel(id: string) {
-    return await prisma.report.findUnique({
+    return await prisma.report.update({
         where: {
-            id: id
-        }
+            id
+        },
+        data
     })
 }
 
