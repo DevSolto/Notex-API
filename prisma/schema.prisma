@@ -33,7 +33,9 @@ model Users {
 
   SubjectClass SubjectClass[]
 
-  UserReportd UserReportd[]
+  Reports Report[]
+
+  UsersReport UsersReport[]
 
   Studing Studying[]
 
@@ -62,7 +64,9 @@ model Report {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  UserReportd UserReportd[]
+  UsersReport UsersReport[]
+  creator     Users         @relation(fields: [creatorId], references: [id])
+  creatorId   String
 }
 
 model Class {
@@ -150,7 +154,7 @@ model SubjectClass {
   @@unique([userId, classId, subjectId])
 }
 
-model UserReportd {
+model UsersReport {
   userId String
   user   Users? @relation(fields: [userId], references: [id])
 

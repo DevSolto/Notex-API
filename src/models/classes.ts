@@ -8,7 +8,7 @@ export async function getClassesModel({ page = 1, limit = 10, year, orderBy = 't
 
     const whereClause = year ? { year } : {};
 
-    const classes = await prisma.class.findMany({
+    let classes = await prisma.class.findMany({
         skip: offset,
         take: limit,
         where: whereClause,
@@ -17,25 +17,25 @@ export async function getClassesModel({ page = 1, limit = 10, year, orderBy = 't
         }
     });
 
-    classes.map(async (classe) => {
+    const classesStudents = await Promise.all(classes.map(async (classe) => {
         const amountStudents = await prisma.studying.count({
             where: {
                 classId: classe.id
             }
-        })
+        });
 
         return {
             ...classe,
             amountStudents
-        }
-    })
+        };
+    }));
 
     const total = await prisma.class.count({
         where: whereClause,
     });
 
     return {
-        classes,
+        classes: classesStudents,
         total,
         page,
         limit,
