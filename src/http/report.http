@@ -1,138 +1,147 @@
-### Create a new report
+# Criar Relatório 1
 POST http://localhost:4000/reports
 Content-Type: application/json
 
 {
-  "title": "Report Title",
-  "description": "Report Description"
+  "title": "Relatório de Desempenho Acadêmico",
+  "description": "Este relatório contém a análise do desempenho acadêmico dos alunos do ensino fundamental no 1º semestre.",
+  "creatorId":"cm1n1gecd0000p20tk2szib7u"
 }
 
-# Testando a rota /reports sem parâmetros (usa os valores padrão)
+###
+
+# Criar Relatório 2
+POST http://localhost:4000/reports
+Content-Type: application/json
+
+{
+  "title": "Relatório de Frequência Escolar",
+  "description": "Relatório detalhando a frequência dos alunos durante o 1º semestre de 2024.",
+  "creatorId":"cm1n1gecd0000p20tk2szib7u"
+}
+
+###
+
+# Criar Relatório 3
+POST http://localhost:4000/reports
+Content-Type: application/json
+
+{
+  "title": "Relatório de Atividades Extracurriculares",
+  "description": "Este relatório cobre todas as atividades extracurriculares realizadas pelos alunos durante o ano de 2024.",
+  "creatorId":"cm1n1gecd0000p20tk2szib7u"
+}
+
+###
+
+# Criar Relatório 4
+POST http://localhost:4000/reports
+Content-Type: application/json
+
+{
+  "title": "Relatório de Avaliação de Professores",
+  "description": "Avaliação semestral de desempenho dos professores baseada em feedbacks de alunos e pais.",
+  "creatorId":"cm1n1gecd0000p20tk2szib7u"
+}
+
+###
+
+# Criar Relatório 5
+POST http://localhost:4000/reports
+Content-Type: application/json
+
+{
+  "title": "Relatório de Infraestrutura Escolar",
+  "description": "Relatório sobre o estado da infraestrutura da escola, com propostas de melhorias.",
+  "creatorId":"cm1n1gecd0000p20tk2szib7u"
+}
+
+###
+
+# Criar Relatório 6
+POST http://localhost:4000/reports
+Content-Type: application/json
+
+{
+  "title": "Relatório do Evento Anual da Escola",
+  "description": "Resumo e avaliação do evento anual realizado pela escola, incluindo participação dos alunos e pais.",
+  "creatorId":"cm1n1gecd0000p20tk2szib7u"
+}
+
+###
+
+# Criar Relatório 7
+POST http://localhost:4000/reports
+Content-Type: application/json
+
+{
+  "title": "Relatório de Resultados de Provas",
+  "description": "Relatório sobre os resultados das provas realizadas pelos alunos no 2º semestre.",
+  "creatorId":"cm1n1gecd0000p20tk2szib7u"
+}
+
+###
+
+# Criar Relatório 8
+POST http://localhost:4000/reports
+Content-Type: application/json
+
+{
+  "title": "Relatório de Monitoramento de Alunos",
+  "description": "Relatório de monitoramento dos alunos baseado no desempenho acadêmico e comportamental.",
+  "creatorId":"cm1n1gecd0000p20tk2szib7u"
+}
+
+###
+
+# Criar Relatório 9
+POST http://localhost:4000/reports
+Content-Type: application/json
+
+{
+  "title": "Relatório de Participação dos Pais",
+  "description": "Análise da participação dos pais em reuniões e atividades escolares ao longo do ano de 2024.",
+  "creatorId":"cm1n1gecd0000p20tk2szib7u"
+}
+
+###
+
+# Criar Relatório 10
+POST http://localhost:4000/reports
+Content-Type: application/json
+
+{
+  "title": "Plano Pedagógico para 2024",
+  "description": "Relatório detalhando as diretrizes do plano pedagógico para o ano letivo de 2024.",
+  "creatorId":"cm1n1gecd0000p20tk2szib7u"
+}
+
+
+
+# Buscar todos os relatórios com os valores padrão (page = 1, limit = 10)
 GET http://localhost:4000/reports
 Content-Type: application/json
 
 ###
 
-# Testando a rota /reports com paginação (page 2, limit 5)
-GET http://localhost:4000/reports?page=1&limit=5
+# Buscar relatórios com paginação (page 2, limit 5)
+GET http://localhost:4000/reports?page=2&limit=5
 Content-Type: application/json
 
 ###
 
-# Testando a rota /reports com ordenação por título decrescente (desc)
-GET http://localhost:4000/reports?orderBy=title&order=desc
+# Buscar relatórios ordenados por título em ordem crescente
+GET http://localhost:4000/reports?orderBy=title&order=asc
 Content-Type: application/json
 
 ###
 
-# Testando a rota /reports com paginação e ordenação (page 3, limit 10, ordenado por data de criação ascendente)
-GET http://localhost:4000/reports?page=1&limit=10&orderBy=createdAt&order=asc
-
-
-# Criando Relatório 1: Desempenho Acadêmico
-POST http://localhost:4000/reports
+# Buscar relatórios ordenados por data de criação (createdAt) em ordem decrescente
+GET http://localhost:4000/reports?orderBy=createdAt&order=desc
 Content-Type: application/json
-
-{
-  "title": "Relatório de Desempenho Acadêmico - 1º Bimestre",
-  "description": "Análise do desempenho acadêmico dos alunos do ensino fundamental no 1º bimestre."
-}
 
 ###
 
-# Criando Relatório 2: Frequência dos Alunos
-POST http://localhost:4000/reports
+# Buscar relatórios com paginação (page 3, limit 10), ordenados por data de atualização (updatedAt) em ordem ascendente
+GET http://localhost:4000/reports?page=3&limit=10&orderBy=updatedAt&order=asc
 Content-Type: application/json
-
-{
-  "title": "Relatório de Desempenho Acadêmico - 1º Bimestre",
-  "description": "Análise do desempenho acadêmico dos alunos do ensino fundamental no 1º bimestre."
-}
-
-###
-
-# Criando Relatório 3: Atividades Extracurriculares
-POST http://localhost:4000/reports
-Content-Type: application/json
-
-{
-  "title": "Relatório de Atividades Extracurriculares - 2024",
-  "description": "Relatório das atividades extracurriculares realizadas pelos alunos durante o ano letivo de 2024."
-}
-
-###
-
-# Criando Relatório 4: Avaliação de Professores
-POST http://localhost:4000/reports
-Content-Type: application/json
-
-{
-  "title": "Relatório de Avaliação de Professores - 2024",
-  "description": "Avaliação semestral de desempenho dos professores, com base em feedback de alunos e pais."
-}
-
-###
-
-# Criando Relatório 5: Infraestrutura Escolar
-POST http://localhost:4000/reports
-Content-Type: application/json
-
-{
-  "title": "Relatório de Infraestrutura Escolar - 2024",
-  "description": "Relatório sobre o estado da infraestrutura escolar, com propostas de melhorias para o próximo semestre."
-}
-
-###
-
-# Criando Relatório 6: Evento Escolar
-POST http://localhost:4000/reports
-Content-Type: application/json
-
-{
-  "title": "Relatório do Evento Anual da Escola - 2024",
-  "description": "Resumo e avaliação do evento anual realizado pela escola, incluindo participação dos alunos e pais."
-}
-
-###
-
-# Criando Relatório 7: Resultados de Provas
-POST http://localhost:4000/reports
-Content-Type: application/json
-
-{
-  "title": "Relatório de Resultados de Provas - 2º Bimestre",
-  "description": "Relatório sobre os resultados das provas realizadas pelos alunos no 2º bimestre."
-}
-
-###
-
-# Criando Relatório 8: Plano Pedagógico
-POST http://localhost:4000/reports
-Content-Type: application/json
-
-{
-  "title": "Relatório de Plano Pedagógico - 2024",
-  "description": "Relatório detalhando as diretrizes do plano pedagógico para o ano letivo de 2024."
-}
-
-###
-
-# Criando Relatório 9: Monitoramento de Alunos
-POST http://localhost:4000/reports
-Content-Type: application/json
-
-{
-  "title": "Relatório de Monitoramento de Alunos - 1º Semestre",
-  "description": "Relatório de monitoramento dos alunos com base em seu desempenho acadêmico e comportamental no 1º semestre."
-}
-
-###
-
-# Criando Relatório 10: Participação dos Pais
-POST http://localhost:4000/reports
-Content-Type: application/json
-
-{
-  "title": "Relatório de Participação dos Pais - 2024",
-  "description": "Análise da participação dos pais em reuniões e atividades escolares durante o ano de 2024."
-}
