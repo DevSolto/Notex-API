@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client"
-import { CreateReportParams } from "../types/report"
+import { CreateReportParams, UpdateReportParams } from "../types/report"
 
 const prisma = new PrismaClient()
 

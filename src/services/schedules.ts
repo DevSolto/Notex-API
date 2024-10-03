@@ -1,7 +1,8 @@
 import { string } from "zod";
-import { getSchedulesModel, getSchedulesByIdModel, CreateSchedulesModel } from "../models/schedules";
+import { getSchedulesModel, getSchedulesByIdModel, CreateSchedulesModel, updateScheduleModel, getScheduleAndDeleteModel } from "../models/schedules";
 import { CreateUserParams, UpdateUserParams } from "../types/user";
-import { CreateSchedulesParams } from "../types/schedules";
+import { CreateSchedulesParams, UpdateSchedulesParams } from "../types/schedules";
+import { UpdateClassParams } from "../types/class";
 
 export async function getSchedulesService() {
 
@@ -20,4 +21,24 @@ export async function createSchedulesService(createSchedulesParams: CreateSchedu
     });
 
     return createSchedule
+}
+
+export async function updateScheduleService(id: string, updateSchedulesParams: UpdateSchedulesParams) {
+    if (updateSchedulesParams.url) {
+        const isUrlInUse = await getSchedulesByIdModel(updateSchedulesParams.url)
+        if (isUrlInUse) {
+            return ({
+                message: "A url já está em uso"
+            })
+        }
+    }
+
+    return await updateScheduleModel(id, updateSchedulesParams)
+}
+
+export async function getScheduleAndDeleteService(id: string) {
+
+    const getAndDelete = await getScheduleAndDeleteModel(id)
+
+    return getAndDelete
 }
