@@ -21,7 +21,7 @@ GET http://localhost:4000/users
 ###
 
 ### Get a specific user by ID
-GET http://localhost:4000/users/{{userId}}
+GET http://localhost:4000/students/cm1mnplty0008vla9htw2e54m
 
 ###
 

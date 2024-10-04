@@ -46,12 +46,26 @@ export async function getClassesModel({ page = 1, limit = 10, year, orderBy = 't
 
 
 export async function getClassesByIdModel(id: string) {
-    return await prisma.class.findUnique({
+    const classe = await prisma.class.findUnique({
         where: {
-            id: id
-        }
-    })
+            id,
+        },
+    });
+    const relations = await prisma.class.findUnique({
+        where: {
+            id,
+        },
+        include: {
+            Studing: {
+                include: {
+                    user: true,
+                },
+            },  
+        },
+    });
+    return { ...relations, ...classe }
 }
+
 
 export async function createClassModel(createClassParams: CreateClassParams) {
     return prisma.class.create({

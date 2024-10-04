@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createUserService, getUsersServices, updateUserService } from "../services/users";
+import { createUserService, getAvailableStudentsForClassService, getUsersServices, updateUserService } from "../services/users";
 import { createUserSchema, updateUserSchema } from "../schemas/users";
 import { ZodError } from "zod";
 
@@ -49,6 +49,7 @@ userRouter.get('/users', async (req, res) => {
 });
 
 
+
 userRouter.post('/users', async (req, res) => {
     try {
         const createUserParams = createUserSchema.parse(req.body)
@@ -92,3 +93,47 @@ userRouter.delete('/users/:id', async (req, res) => {
         }
     }
 })
+
+userRouter.get('/students/:classId', async (req, res) => {
+    try {
+      const {
+        page = 1,
+        limit = 10,
+        name,
+        email,
+        cpf,
+        isActive,
+        phone,
+        orderBy = 'createdAt',
+        order = 'asc',
+      } = req.query;
+  
+      const { classId } = req.params;
+  
+      const allowedOrderFields = ['id', 'name', 'email', 'cpf', 'role', 'phone', 'createdAt', 'updatedAt'];
+      const orderByField = allowedOrderFields.includes(orderBy as string) ? orderBy as string : 'createdAt';
+
+      const pageNumber = parseInt(page as string, 10);
+      const limitNumber = parseInt(limit as string, 10);
+      const orderValue = order as string === 'desc' ? 'desc' : 'asc';
+      const isActiveBoolean = isActive ? isActive === 'true' : undefined;
+  
+      const users = await getAvailableStudentsForClassService({
+        page: pageNumber,
+        limit: limitNumber,
+        name: name as string,
+        email: email as string,
+        cpf: cpf as string,
+        isActive: isActiveBoolean,
+        phone: phone as string,
+        orderBy: orderByField,
+        order: orderValue,
+        classId: classId, 
+      });
+  
+      res.send(users);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send({ error: 'An error occurred while fetching students' });
+    }
+  });
