@@ -1,13 +1,13 @@
 import { getUserByIdModel } from "../models/users";
 import { getClassesByIdModel } from "../models/classes";
-import { createStudyingModel, getStudyingByStudentModel, getStudyingModel } from "../models/studying";
-import { CreateStudyingParams } from "../types/studying";
+import { createStudyingModel, getStudyingAndDeleteModel, getStudyingByIdModel, getStudyingModel, updateStudyingModel } from "../models/studying";
+import { CreateStudyingParams, UpdateStudyingParams } from "../types/studying";
 
 export async function getStudyingService() {
   return await getStudyingModel()
 }
-export async function getStudyingByStudentService(studentId:string) {
-  const classes = await getStudyingByStudentModel(studentId)
+export async function getStudyingByIdService(studentId:string) {
+  const classes = await getStudyingByIdModel(studentId)
 
   if(classes){
     return classes
@@ -35,4 +35,24 @@ export async function createStudyingService(createStudyingParams: CreateStudying
   }
 
   return await createStudyingModel(createStudyingParams);
+}
+
+export async function updateStudyingService(id: string, updateStuyindParams: UpdateStudyingParams) {
+  if (updateStudyingService.id) {
+    const isInUse = await getStudyingByIdModel(updateStuyindParams.id)
+    if (isInUse) {
+      return ({
+        message: "Já estpa atualizado"
+      })
+    }
+  }
+
+  return await updateStudyingModel(id, updateStuyindParams)
+}
+
+export async function getStudyingAndDeleteService(id: string) {
+
+  const getAndDelete = await getStudyingAndDeleteModel(id)
+
+  return getAndDelete
 }
