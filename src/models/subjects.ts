@@ -32,3 +32,11 @@ export async function updateSubjectModel(id: string, data: UpdateSubjectParams) 
     }, data
   })
 }
+
+export async function getSubjectAndDeleteModel(id: string) {
+  return await prisma.subject.delete({
+    where: {
+      id: id
+    }
+  })
+}

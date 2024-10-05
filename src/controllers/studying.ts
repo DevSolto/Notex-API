@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { ZodError } from "zod";
-import { createStudyingSchema } from "../schemas/studying";
-import { createStudyingService, getStudyingService } from "../services/studying";
+import { createStudyingSchema, updateStudyingSchema } from "../schemas/studying";
+import { createStudyingService, getStudyingAndDeleteService, getStudyingByIdService, getStudyingService, updateStudyingService } from "../services/studying";
 
 export const studyingRouter = Router();
 
@@ -14,6 +14,12 @@ studyingRouter.get('/studying', async (req, res) => {
     res.status(500).send({ message: 'Interna Server Error' });
   }
 });
+
+studyingRouter.get('/studying:id', async (req, res) => {
+  const studyingId = req.params.id
+  const studyingReturned = await getStudyingByIdService(studyingId)
+  res.send(studyingReturned)
+})
 
 studyingRouter.post('/studying', async (req, res) => {
   try {
@@ -40,3 +46,31 @@ studyingRouter.post('/studying', async (req, res) => {
     }
   }
 });
+
+studyingRouter.patch('/studying/:id', async (req, res) => {
+  try {
+    const studyingId = req.params.id
+    const updateStuyindParams = updateStudyingSchema.parse(req.body)
+    const updateStudying = await updateStudyingService(studyingId, updateStuyindParams)
+    res.send(updateStudying)
+  } catch (error) {
+    if (error instanceof ZodError) {
+      res.status(400).send(error)
+    } else {
+      res.status(500).send(error)
+    }
+  }
+})
+
+studyingRouter.delete('/studying/:id', async (req, res) => {
+  try {
+    const studyingDeleted = await getStudyingAndDeleteService(req.params.id)
+    res.send(studyingDeleted)
+  } catch (error) {
+    if (error instanceof ZodError) {
+      res.status(400).send(error)
+    } else {
+      res.status(500).send(error)
+    }
+  }
+})
