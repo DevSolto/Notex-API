@@ -17,8 +17,8 @@ Content-Type: application/json
 
 ###
 
-### Testando a rota com paginação (página 2, 5 itens por página)
-GET http://localhost:4000/classes/cm1mnplty0008vla9htw2e54m
+### Testando a rota com paginação (página 2, 5 itens por página)vi
+GET http://localhost:4000/classes/students/idDoUsuário
 Content-Type: application/json
 
 ###

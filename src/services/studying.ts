@@ -1,10 +1,19 @@
 import { getUserByIdModel } from "../models/users";
 import { getClassesByIdModel } from "../models/classes";
-import { createStudyingModel, getStudyingModel } from "../models/studying";
+import { createStudyingModel, getStudyingByStudentModel, getStudyingModel } from "../models/studying";
 import { CreateStudyingParams } from "../types/studying";
 
 export async function getStudyingService() {
   return await getStudyingModel()
+}
+export async function getStudyingByStudentService(studentId:string) {
+  const classes = await getStudyingByStudentModel(studentId)
+
+  if(classes){
+    return classes
+  }
+
+  throw new Error('Classe não encontrada')
 }
 
 export async function createStudyingService(createStudyingParams: CreateStudyingParams) {

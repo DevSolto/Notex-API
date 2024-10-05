@@ -2,6 +2,7 @@ import { Router } from "express";
 import { getClassesService, createClassService, updateClassService, getClassesByIdService, deleteClassService } from "../services/classes";
 import { createClassSchema, updateClassSchema } from "../schemas/classes";
 import { ZodError } from "zod";
+import { getStudyingByStudentModel } from "../models/studying";
 
 export const classesController = Router();
 
@@ -41,6 +42,14 @@ classesController.get('/classes/:id', async (req, res) => {
 
     res.send(deletedClass)
 
+})
+
+classesController.get('/classes/students/:id', async (req, res) => {
+    const studentId = req.params.id
+
+    const classe = await getStudyingByStudentModel(studentId)
+
+    res.send(classe)
 })
 
 classesController.post('/classes', async (req, res) => {
