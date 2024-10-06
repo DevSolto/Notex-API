@@ -1,4 +1,4 @@
-import { error } from "console";
+exportimport { error } from "console";
 import { createConceptModel, getConceptsModel, getConceptsByIdModel, updateConceptModel, getConceptAndDeleteModel } from "../models/concepts";
 import { getUserByIdModel } from "../models/users";
 import { CreateConceptParams, UpdateConceptParams } from "../types/concept";
