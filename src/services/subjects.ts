@@ -1,5 +1,5 @@
 import { Prisma, PrismaClient } from "@prisma/client";
-import { createSubjectModel, getSubjectsByIdModel, getSubjectsModel, updateSubjectModel } from "../models/subjects";
+import { createSubjectModel, getSubjectsByIdModel, getSubjectsModel, updateSubjectModel, getSubjectAndDeleteModel } from "../models/subjects";
 import { CreateClassParams ,UpdateClassParams } from "../types/class";
 import { CreateSubjectParams, UpdateSubjectParams } from "../types/subjects";
 
@@ -34,4 +34,11 @@ export async function updateSubjectService(name: string, updateSubjectParams: Up
     }
 
     return await updateSubjectModel(name, updateSubjectParams)
+}
+
+export async function getSubjectAndDeleteService(id: string) {
+
+    const getAndDelete = await getSubjectAndDeleteModel(id)
+
+    return getAndDelete
 }

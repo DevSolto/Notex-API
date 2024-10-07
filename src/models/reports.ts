@@ -54,16 +54,12 @@ export async function getReportsModel({
   };
 }
 
-export async function createReportModel({ title, description, creatorId }: CreateReportParams) {
-  return prisma.report.create({
-    data: {
-      title,
-      description,
-      creator: {
-        connect: { id: creatorId },
-      },
-    },
-  });
+export async function getReportByIdModel(id: string) {
+  return await prisma.report.findUnique({
+    where: {
+      id: id
+    }
+  })
 }
 
 export async function getReportByTitleModel(title: string) {
@@ -74,12 +70,16 @@ export async function getReportByTitleModel(title: string) {
   });
 }
 
-export async function getReportByIdModel(id: string) {
-  return await prisma.report.findUnique({
-    where: {
-      id: id
-    }
-  })
+export async function createReportModel({ title, description, creatorId }: CreateReportParams) {
+  return prisma.report.create({
+    data: {
+      title,
+      description,
+      creator: {
+        connect: { id: creatorId },
+      },
+    },
+  });
 }
 
 export async function getReportAndDeleteModel(id: string) {

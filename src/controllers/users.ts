@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createUserService, getAvailableStudentsForClassService, getUserByIdService, getUserByIdServices, getUsersServices, updateUserService } from "../services/users";
+import { createUserService, getAvailableStudentsForClassService, getUserByIdService, getUsersServices, updateUserService } from "../services/users";
 import { createUserSchema, updateUserSchema } from "../schemas/users";
 import { ZodError } from "zod";
 
@@ -31,7 +31,7 @@ userRouter.get('/users', async (req, res) => {
         const users = await getUsersServices({
             page: pageNumber,
             limit: limitNumber,
-            search: search as string, // Passa o parâmetro de busca
+            search: search as string,
             email: email as string,
             cpf: cpf as string,
             isActive: isActiveBoolean,
