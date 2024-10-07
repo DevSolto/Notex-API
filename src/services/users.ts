@@ -1,29 +1,57 @@
-import { createUserModel, getAvailableStudentsForClassModel, getUserByCPFModel, getUserByEmailModel, getUserByPhoneModel, getUsersModel, updateUserModel } from "../models/users";
+import { createUserModel, getAvailableStudentsForClassModel, getUserByCPFModel, getUserByEmailModel, getUserByIdModel, getUserByPhoneModel, getUsersModel, updateUserModel } from "../models/users";
 import { CreateUserParams, GetUsersParams, UpdateUserParams } from "../types/user";
 import bcrypt from "bcrypt"
 
 export async function getUsersServices(params: GetUsersParams) {
-    return await getUsersModel(params);
+    const whereClause: any = {};
+    
+    if (params.search) {
+        whereClause.name = { contains: params.search, mode: 'insensitive' }; // Busca por nome
+    }
+
+    if (params.email) {
+        whereClause.email = { contains: params.email };
+    }
+
+    if (params.cpf) {
+        whereClause.cpf = { equals: params.cpf };
+    }
+
+    if (params.isActive !== undefined) {
+        whereClause.isActive = params.isActive;
+    }
+
+    if (params.role) {
+        whereClause.role = { equals: params.role };
+    }
+
+    if (params.phone) {
+        whereClause.phone = { contains: params.phone };
+    }
+
+    const users = await getUsersModel({
+        ...params,
+        whereClause,
+    });
+
+    return users;
+}
+export async function getUserByIdService(userId: string) {
+    return await getUserByIdModel(userId)
 }
 export async function createUserService(createUserParams: CreateUserParams) {
 
     const isEmailInUse = await getUserByEmailModel(createUserParams.email)
     if (isEmailInUse) {
-        return ({
-            message: "Este e-mail está sendo usado por outro usuário"
-        })
+        throw new Error("Este e-mail está sendo usado por outro usuário")
     }
     const isCPFInUse = await getUserByCPFModel(createUserParams.cpf)
     if (isCPFInUse) {
-        return ({
-            message: "Esta CPF está em uso por outro usuário"
-        })
+        throw new Error("Esta CPF está em uso por outro usuário")
     }
     const isPhoneInUse = await getUserByPhoneModel(createUserParams.phone)
     if (isPhoneInUse) {
-        return ({
-            message: "Este Número está sendo usado por outro usuário"
-        })
+        throw new Error("Este Número está sendo usado por outro usuário")
     }
     const hash = await bcrypt.hash(createUserParams.password, 10)
 

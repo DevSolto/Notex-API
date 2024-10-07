@@ -21,3 +21,8 @@ GET http://localhost:3000/user-reportd/{{userId}}/{{reportId}}
 
 ### Delete a user report record
 DELETE http://localhost:3000/user-reportd/{{userId}}/{{reportId}}
+
+
+### Testar a rota de relatórios não visualizados por um usuário
+
+GET http://localhost:4000/reports/not-viewed/cm1n1gecd0000p20tk2szib7u

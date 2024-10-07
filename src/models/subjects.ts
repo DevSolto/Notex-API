@@ -1,6 +1,5 @@
 import { PrismaClient } from "@prisma/client";
 import { CreateSubjectParams, UpdateSubjectParams } from "../types/subjects";
-import { UpdateClassParams } from "../types/class";
 
 
 const prisma = new PrismaClient()

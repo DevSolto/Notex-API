@@ -1,5 +1,6 @@
-import { getReportByIdModel, getReportsModel, getReportAndDeleteModel } from "../models/reports";
-import { UpdateReportParams } from "../types/report";
+import { getReportsModel, getReportAndDeleteModel, createReportModel } from "../models/reports";
+import { getUserByIdModel } from "../models/users";
+import { CreateReportParams } from "../types/report";
 
 export async function getReportsServices({
   page = 1,
@@ -18,6 +19,17 @@ export async function getReportsServices({
     orderBy,
     order,
   });
+}
+
+export async function createReportService(data: CreateReportParams) {
+  const creator = await getUserByIdModel(data.creatorId)
+
+  if (!creator) {
+    throw new Error('Criador não encontrado')
+  }
+
+  return await createReportModel(data)
+
 }
 
 // export async function updateReportService(id: string, updateReportParams: UpdateReportParams) {

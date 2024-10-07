@@ -1,4 +1,4 @@
-import { Prisma, PrismaClient } from "@prisma/client"
+import { PrismaClient } from "@prisma/client"
 import { CreateUserParams, UpdateUserParams } from "../types/user"
 
 const prisma = new PrismaClient();
@@ -6,35 +6,17 @@ const prisma = new PrismaClient();
 export async function getUsersModel({
   page = 1,
   limit = 10,
-  name,
-  email,
-  cpf,
-  isActive,
-  role,
-  phone,
+  whereClause = {},
   orderBy = 'createdAt',
   order = 'asc'
 }: {
   page?: number;
   limit?: number;
-  name?: string;
-  email?: string;
-  cpf?: string;
-  isActive?: boolean;
-  role?: string;
-  phone?: string;
+  whereClause?: any;
   orderBy?: string;
   order?: 'asc' | 'desc';
 }) {
   const offset = (page - 1) * limit;
-
-  const whereClause: any = {};
-  if (name) whereClause.name = { contains: name };
-  if (email) whereClause.email = { contains: email };
-  if (cpf) whereClause.cpf = { equals: cpf };
-  if (isActive !== undefined) whereClause.isActive = isActive;
-  if (role) whereClause.role = { equals: role };
-  if (phone) whereClause.phone = { contains: phone };
 
   const users = await prisma.users.findMany({
     skip: offset,
@@ -59,6 +41,7 @@ export async function getUsersModel({
 }
 
 
+
 export async function getAvailableStudentsForClassModel({
   page = 1,
   limit = 10,
@@ -66,9 +49,9 @@ export async function getAvailableStudentsForClassModel({
   email,
   cpf,
   isActive,
-  role = 'STUDENT',  // Filtrar estudantes por padrão
+  role = 'STUDENT',
   phone,
-  classId,  // ID da classe para excluir estudantes já matriculados
+  classId,
   orderBy = 'createdAt',
   order = 'asc',
 }: {
@@ -80,31 +63,28 @@ export async function getAvailableStudentsForClassModel({
   isActive?: boolean;
   role?: string;
   phone?: string;
-  classId: string;  // Parâmetro para passar o ID da classe
+  classId: string;
   orderBy?: string;
   order?: 'asc' | 'desc';
 }) {
   const offset = (page - 1) * limit;
 
   const whereClause: any = {
-    role: { equals: 'STUDENT' },  // Garante que apenas estudantes sejam retornados
+    role: { equals: 'STUDENT' },
   };
 
-  // Filtros opcionais
   if (name) whereClause.name = { contains: name };
   if (email) whereClause.email = { contains: email };
   if (cpf) whereClause.cpf = { equals: cpf };
   if (isActive !== undefined) whereClause.isActive = isActive;
   if (phone) whereClause.phone = { contains: phone };
 
-  // Filtro para excluir estudantes que já estão matriculados na classe
   whereClause.Studing = {
-    none: {  // Use `none` aqui para filtrar estudantes que não estão associados à classe
-      classId: classId,  // Verifica se o estudante não está relacionado a esta classe
+    none: {
+      classId: classId,
     },
   };
 
-  // Consulta os usuários com paginação
   const users = await prisma.users.findMany({
     skip: offset,
     take: limit,
@@ -114,7 +94,6 @@ export async function getAvailableStudentsForClassModel({
     },
   });
 
-  // Conta o total de usuários que correspondem à pesquisa
   const total = await prisma.users.count({
     where: whereClause,
   });
@@ -131,6 +110,13 @@ export async function getAvailableStudentsForClassModel({
 
 
 
+export async function getUsersByRoleModel(role: string) {
+  return prisma.users.findMany({
+    where: {
+      role
+    }
+  })
+}
 export async function createUserModel(createUserParams: CreateUserParams) {
   return prisma.users.create({
     data: createUserParams

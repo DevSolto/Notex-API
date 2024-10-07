@@ -9,3 +9,11 @@ export type UpdateReportParams = {
     description?: string
     creatorId?: string
 }
+
+export type CreateUsersReportParams = {
+    userId: string
+    reportId: string
+}
+export type UpdateUsersReportParams = {
+    viewed: boolean
+}

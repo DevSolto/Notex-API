@@ -161,8 +161,11 @@ model UsersReport {
   reportId String
   report   Report? @relation(fields: [reportId], references: [id])
 
+  viewed Boolean @default(false)
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  @@id([userId, reportId])
   @@unique([userId, reportId])
 }

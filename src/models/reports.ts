@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client"
-import { CreateReportParams, UpdateReportParams } from "../types/report"
+import { CreateReportParams } from "../types/report"
 
 const prisma = new PrismaClient()
 
@@ -24,6 +24,7 @@ export async function getReportsModel({
     },
     include: {
       creator: true,
+      UsersReport: true
     },
   });
 

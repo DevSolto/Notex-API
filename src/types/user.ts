@@ -23,7 +23,7 @@ export type UpdateUserParams = {
 export type GetUsersParams = {
     page?: number;
     limit?: number;
-    name?: string;
+    search?: string;
     email?: string;
     cpf?: string;
     isActive?: boolean;
@@ -31,4 +31,4 @@ export type GetUsersParams = {
     phone?: string;
     orderBy?: string;
     order?: 'asc' | 'desc';
-}
+};
