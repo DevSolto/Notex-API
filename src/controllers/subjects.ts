@@ -12,7 +12,6 @@ subjectsRouter.get('/subjects', async (req, res) => {
             page = 1,
             limit = 10,
             search,
-            name,
             orderBy = 'createdAt',
             order = 'asc'
         } = req.query;
@@ -23,13 +22,11 @@ subjectsRouter.get('/subjects', async (req, res) => {
         const pageNumber = parseInt(page as string, 10);
         const limitNumber = parseInt(limit as string, 10);
         const orderValue = order as string === 'desc' ? 'desc' : 'asc';
-        const isActiveBoolean = isActive ? isActive === 'true' : undefined;
 
         const subject = await getSubjectsService({
             page: pageNumber,
             limit: limitNumber,
-            search: name as string,
-            isActive: isActiveBoolean,
+            search: search as string,
             orderBy: orderByField,
             order: orderValue
         });
@@ -47,7 +44,7 @@ subjectsRouter.get('/subjects/:id', async (req, res) => {
     res.send(subjectReturn)
 })
 
-subjectsRouter.post('/subjects', async (req,res) => {
+subjectsRouter.post('/subjects', async (req, res) => {
     try {
         const createSubjectParams = createSubjectSchema.parse(req.body)
         const createSubject = await createSubjectService(createSubjectParams)

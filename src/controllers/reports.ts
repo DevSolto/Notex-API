@@ -27,7 +27,6 @@ reportsController.get('/reports', async (req, res) => {
 
 reportsController.get('/reports/not-viewed/:userId', async (req, res) => {
     try {
-        console.log(req.params.userId);
 
         const reports = await getNotViewedReportsByUserIdService(req.params.userId)
 

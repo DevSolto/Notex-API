@@ -1,5 +1,4 @@
-import { Prisma, PrismaClient } from "@prisma/client"
-import { CreateSubjectClassParams } from "../types/subjectClass"
+import {  PrismaClient } from "@prisma/client"
 
 const prisma = new PrismaClient();
 

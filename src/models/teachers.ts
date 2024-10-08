@@ -7,9 +7,9 @@ export async function getTeachersModel() {
     return await prisma.teach.findMany()
 }
 
-export async function createTeachersModel(createteachersParams: CreateTeacherParams) {
-    const teacherData = createteachersParams.userId.map(userId => ({
-        classId: createteachersParams.classId,
-        userId
-    }));
-}
+// export async function createTeachersModel(createteachersParams: CreateTeacherParams) {
+//     const teacherData = createteachersParams.userId.map(userId => ({
+//         classId: createteachersParams.classId,
+//         userId
+//     }));
+// }

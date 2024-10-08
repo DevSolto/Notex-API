@@ -5,6 +5,7 @@ import { conceptRouter } from './controllers/concepts';
 import { reportsController } from './controllers/reports';
 import { classesController } from './controllers/classes';
 import { studyingRouter } from './controllers/studying';
+import { subjectsRouter } from './controllers/subjects';
 
 const app = express();
 app.use(cors());
@@ -15,6 +16,7 @@ app.use(studyingRouter);
 app.use(conceptRouter);
 app.use(reportsController);
 app.use(classesController);
+app.use(subjectsRouter);
 
 const port = process.env.PORT || 4000;
 

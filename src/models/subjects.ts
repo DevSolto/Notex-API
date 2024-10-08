@@ -7,17 +7,25 @@ const prisma = new PrismaClient()
 export async function getSubjectsModel({
   page = 1,
   limit = 10,
-  whereClause = {},
+  search = '',
   orderBy = 'createdAt',
   order = 'asc'
 }: {
   page?: number;
   limit?: number;
-  whereClause?: any;
-  orderBy?: string,
+  search?: string;
+  orderBy?: string;
   order?: 'asc' | 'desc';
 }) {
   const offset = (page - 1) * limit;
+
+  const whereClause: any = {};
+  if (search) {
+    whereClause.name = {
+      contains: search,
+      mode: 'insensitive'
+    };
+  }
 
   const subjects = await prisma.subject.findMany({
     skip: offset,
@@ -25,6 +33,13 @@ export async function getSubjectsModel({
     where: whereClause,
     orderBy: {
       [orderBy]: order,
+    },
+    include: {
+      _count: {
+        select: {
+          SubjectClass: true
+        }
+      }
     }
   });
 
@@ -37,7 +52,7 @@ export async function getSubjectsModel({
     total,
     page,
     limit,
-    totalPages:  Math.ceil(total / limit),
+    totalPages: Math.ceil(total / limit),
   };
 }
 

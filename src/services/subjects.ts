@@ -1,23 +1,23 @@
 import { Prisma, PrismaClient } from "@prisma/client";
 import { createSubjectModel, getSubjectsByIdModel, getSubjectsModel, updateSubjectModel, getSubjectAndDeleteModel } from "../models/subjects";
-import { CreateClassParams ,UpdateClassParams } from "../types/class";
+import { CreateClassParams, UpdateClassParams } from "../types/class";
 import { CreateSubjectParams, UpdateSubjectParams } from "../types/subjects";
 import { GetUsersParams } from "../types/user";
 
-export async function getSubjectsService(params: GetUsersParams) {
-    const whereClause: any = {};
+export async function getSubjectsService(params: {
+    page?: number;
+    limit?: number;
+    search?: string;
+    orderBy?: string;
+    order?: 'asc' | 'desc';
+}) {
 
-    if (params.search) {
-        whereClause.name = { contains: params.search, mode: 'insensitive' };
-    }
+    // Chamar o model passando a cláusula where e outros parâmetros
+    const subjects = await getSubjectsModel(params);
 
-    const subjects = await getSubjectsModel({
-        ...params,
-        whereClause
-    })
-
-    return await subjects
+    return subjects;
 }
+
 
 export async function getSubjectsByIdService(id: string) {
 
@@ -36,7 +36,7 @@ export async function createSubjectService(createSubjectParams: CreateSubjectPar
 export async function updateSubjectService(name: string, updateSubjectParams: UpdateSubjectParams) {
     if (updateSubjectParams.name) {
         const isNameInUse = await getSubjectsByIdModel
-        (updateSubjectParams.name)
+            (updateSubjectParams.name)
         if (isNameInUse) {
             return ({
                 message: "Este nome esta em uso"

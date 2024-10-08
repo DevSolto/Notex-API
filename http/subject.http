@@ -1,5 +1,5 @@
 ### Create a new subject
-POST http://localhost:3000/subjects
+POST http://localhost:4000/subjects
 Content-Type: application/json
 
 {
@@ -9,17 +9,17 @@ Content-Type: application/json
 ###
 
 ### Get all subjects
-GET http://localhost:3000/subjects
+GET http://localhost:4000/subjects
 
 ###
 
 ### Get a specific subject by ID
-GET http://localhost:3000/subjects/{{subjectId}}
+GET http://localhost:4000/subjects/{{subjectId}}
 
 ###
 
 ### Update a subject
-PATCH http://localhost:3000/subjects/{{subjectId}}
+PATCH http://localhost:4000/subjects/{{subjectId}}
 Content-Type: application/json
 
 {
@@ -29,4 +29,22 @@ Content-Type: application/json
 ###
 
 ### Delete a subject
-DELETE http://localhost:3000/subjects/{{subjectId}}
+DELETE http://localhost:4000/subjects/{{subjectId}}
+
+### Listar subjects com paginação, ordenação e pesquisa
+GET http://localhost:4000/subjects?page=1&limit=10&search=m&orderBy=name&order=asc
+Content-Type: application/json
+
+###
+
+### Listar subjects sem filtro de pesquisa, apenas paginação
+GET http://localhost:4000/subjects?page=2&limit=5&orderBy=createdAt&order=desc
+Content-Type: application/json
+
+###
+
+### Listar subjects sem parâmetros (usar valores padrão)
+GET http://localhost:4000/subjects
+Content-Type: application/json
+
+###

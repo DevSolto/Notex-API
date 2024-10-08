@@ -2,7 +2,6 @@ import { Router } from "express";
 import { ZodError } from "zod";
 import { createConceptService, getConceptsByIdService, getConceptsService, updateConceptService, getConceptAndDeleteService } from "../services/concepts";
 import { createConceptsSchema, updateConceptsSchema } from "../schemas/concepts";
-import { error } from "console";
 
 export const conceptRouter = Router();
 
@@ -11,9 +10,8 @@ conceptRouter.get('/concepts', async (req, res) => {
     const {
         page = 1,
         limit = 10,
-        search, // Novo parâmetro de busca
+        search,
         isActive,
-        url,
         orderBy = 'createdAt',
         order = 'asc'
     } = req.query;

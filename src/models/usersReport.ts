@@ -30,7 +30,11 @@ export async function getNotViewedReportsByUserIdModel(userId: string) {
       viewed: false,
     },
     include: {
-      report: true,
+      report: {
+        include: {
+          creator: true
+        }
+      },
     },
   });
   console.log(usersReports);

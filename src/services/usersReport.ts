@@ -11,7 +11,6 @@ export async function createUsersReportByRoleService(role: string, reportId: str
         userId: user.id,
         reportId
       });
-      console.log(userReport);
       return userReport;
     })
   );

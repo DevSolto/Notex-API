@@ -1,7 +1,5 @@
 import { Router } from "express";
-import { ZodError } from "zod";
 import { getTeachersService } from "../services/teachers";
-import { createTeachersSchema, updateTeachersSchema } from "../schemas/teachers";
 
 export const teacherRouter = Router();
 

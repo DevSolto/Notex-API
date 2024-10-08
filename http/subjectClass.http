@@ -3,9 +3,9 @@ POST http://localhost:3000/subject-class
 Content-Type: application/json
 
 {
-  "userId": "{{userId}}",
-  "classId": "{{classId}}",
-  "subjectId": "{{subjectId}}"
+  "userId": "cm1n1gecd0000p20tk2szib7u",
+  "classId": "cm1tjn9v90000lcun072sazcw",
+  "subjectId": "cm20szuwp0000skf747cab72c"
 }
 
 ###

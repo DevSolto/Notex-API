@@ -26,20 +26,20 @@ export async function createStudyingModel(createStudyingParams: CreateStudyingPa
   });
 }
 
-export async function updateStudyingModel(id: string, data: UpdateStudyingParams) {
+// export async function updateStudyingModel(id: string, data: UpdateStudyingParams) {
 
-  return await prisma.studying.update({
-    where: {
-      id
-    },
-    data
-  })
-}
+//   return await prisma.studying.update({
+//     where: {
+//       id
+//     },
+//     data
+//   })
+// }
 
-export async function getStudyingAndDeleteModel(id: string) {
-  return await prisma.studying.delete({
-    where: {
-      userId_classId: id
-    }
-  })
-}
+// export async function getStudyingAndDeleteModel(id: string) {
+//   return await prisma.studying.delete({
+//     where: {
+//       userId_classId: id
+//     }
+//   })
+// }
