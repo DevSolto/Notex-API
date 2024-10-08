@@ -1,10 +1,25 @@
 import { createConceptModel, getConceptsModel, getConceptsByIdModel, updateConceptModel, getConceptAndDeleteModel } from "../models/concepts";
 import { getUserByIdModel } from "../models/users";
-import { CreateConceptParams, UpdateConceptParams } from "../types/concept";
+import { CreateConceptParams, GetConceptParams, UpdateConceptParams } from "../types/concept";
 
 
-export async function getConceptsService() {
-  return await getConceptsModel()
+export async function getConceptsService(params: GetConceptParams) {
+  const whereClause: any = {};
+
+  if (params.search) {
+    whereClause.url = { contains: params.search, mode: 'insensitive' };
+  }
+
+  if (params.isActive !== undefined) {
+    whereClause.isActive = params.isActive;
+  }
+
+  const concepts = await getConceptsModel({
+    ...params,
+    whereClause,
+  });
+
+  return concepts;
 }
 
 export async function getConceptsByIdService(id: string) {

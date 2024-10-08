@@ -4,9 +4,41 @@ import { CreateSubjectParams, UpdateSubjectParams } from "../types/subjects";
 
 const prisma = new PrismaClient()
 
-export async function getSubjectsModel() {
+export async function getSubjectsModel({
+  page = 1,
+  limit = 10,
+  whereClause = {},
+  orderBy = 'createdAt',
+  order = 'asc'
+}: {
+  page?: number;
+  limit?: number;
+  whereClause?: any;
+  orderBy?: string,
+  order?: 'asc' | 'desc';
+}) {
+  const offset = (page - 1) * limit;
 
-  return await prisma.subject.findMany()
+  const subjects = await prisma.subject.findMany({
+    skip: offset,
+    take: limit,
+    where: whereClause,
+    orderBy: {
+      [orderBy]: order,
+    }
+  });
+
+  const total = await prisma.subject.count({
+    where: whereClause,
+  });
+
+  return {
+    subjects,
+    total,
+    page,
+    limit,
+    totalPages:  Math.ceil(total / limit),
+  };
 }
 
 export async function getSubjectsByIdModel(id: string) {

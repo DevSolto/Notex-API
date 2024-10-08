@@ -2,10 +2,21 @@ import { Prisma, PrismaClient } from "@prisma/client";
 import { createSubjectModel, getSubjectsByIdModel, getSubjectsModel, updateSubjectModel, getSubjectAndDeleteModel } from "../models/subjects";
 import { CreateClassParams ,UpdateClassParams } from "../types/class";
 import { CreateSubjectParams, UpdateSubjectParams } from "../types/subjects";
+import { GetUsersParams } from "../types/user";
 
-export async function getSubjectsService() {
+export async function getSubjectsService(params: GetUsersParams) {
+    const whereClause: any = {};
 
-    return await getSubjectsModel
+    if (params.search) {
+        whereClause.name = { contains: params.search, mode: 'insensitive' };
+    }
+
+    const subjects = await getSubjectsModel({
+        ...params,
+        whereClause
+    })
+
+    return await subjects
 }
 
 export async function getSubjectsByIdService(id: string) {

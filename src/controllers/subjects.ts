@@ -7,9 +7,39 @@ import { error } from "console";
 export const subjectsRouter = Router();
 
 subjectsRouter.get('/subjects', async (req, res) => {
-    const subjects = await getSubjectsService()
-    res.send(subjects)
-})
+    try {
+        const {
+            page = 1,
+            limit = 10,
+            search,
+            name,
+            orderBy = 'createdAt',
+            order = 'asc'
+        } = req.query;
+
+        const allowedOrderFields = ['id', 'name', 'createdAt', 'updatedAt'];
+        const orderByField = allowedOrderFields.includes(orderBy as string) ? orderBy as string : 'createdAt';
+
+        const pageNumber = parseInt(page as string, 10);
+        const limitNumber = parseInt(limit as string, 10);
+        const orderValue = order as string === 'desc' ? 'desc' : 'asc';
+        const isActiveBoolean = isActive ? isActive === 'true' : undefined;
+
+        const subject = await getSubjectsService({
+            page: pageNumber,
+            limit: limitNumber,
+            search: name as string,
+            isActive: isActiveBoolean,
+            orderBy: orderByField,
+            order: orderValue
+        });
+
+        res.send(subject);
+    } catch (error) {
+        console.error('Error fetching subjects:', error);
+        res.status(500).send({ error: 'An error occurred while fetching subjects' });
+    }
+});
 
 subjectsRouter.get('/subjects/:id', async (req, res) => {
     const subjectId = req.params.id
