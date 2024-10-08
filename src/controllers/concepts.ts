@@ -8,12 +8,39 @@ export const conceptRouter = Router();
 
 conceptRouter.get('/concepts', async (req, res) => {
   try {
-    const users = await getConceptsService();
-    res.send(users);
-  } catch (error) {
+    const {
+        page = 1,
+        limit = 10,
+        search, // Novo parâmetro de busca
+        isActive,
+        url,
+        orderBy = 'createdAt',
+        order = 'asc'
+    } = req.query;
+
+    const allowedOrderFields = ['id', 'url', 'creatorId', 'studentId', 'createdAt', 'updatedAt'];
+    const orderByField = allowedOrderFields.includes(orderBy as string) ? orderBy as string : 'createdAt';
+
+    const pageNumber = parseInt(page as string, 10);
+    const limitNumber = parseInt(limit as string, 10);
+    const orderValue = order as string === 'desc' ? 'desc' : 'asc';
+    const isActiveBoolean = isActive ? isActive === 'true' : undefined;
+
+    const concepts = await getConceptsService({
+        page: pageNumber,
+        limit: limitNumber,
+        search: search as string,
+        isActive: isActiveBoolean,
+        orderBy: orderByField,
+        order: orderValue,
+        url: orderValue,
+    });
+
+    res.send(concepts);
+} catch (error) {
     console.error('Error fetching concepts:', error);
-    res.status(500).send({ message: 'Internal Server Error' });
-  }
+    res.status(500).send({ error: 'An error occurred while fetching concepts' });
+}
 });
 
 conceptRouter.get('/concepts/:id', async (req, res) => {
