@@ -4,7 +4,7 @@ import bcrypt from "bcrypt"
 
 export async function getUsersServices(params: GetUsersParams) {
     const whereClause: any = {};
-    
+
     if (params.search) {
         whereClause.name = { contains: params.search, mode: 'insensitive' }; // Busca por nome
     }
@@ -66,7 +66,7 @@ export async function createUserService(createUserParams: CreateUserParams) {
 export async function updateUserService(id: string, updateUserParams: UpdateUserParams) {
     if (updateUserParams.email) {
         const isEmailInUse = await getUserByEmailModel(updateUserParams.email)
-        if (isEmailInUse) {
+        if (isEmailInUse && isEmailInUse.id !== id) {
             return ({
                 message: "Este e-mail está sendo usado por outro usuário"
             })
@@ -74,7 +74,7 @@ export async function updateUserService(id: string, updateUserParams: UpdateUser
     }
     if (updateUserParams.cpf) {
         const isCPFInUse = await getUserByCPFModel(updateUserParams.cpf)
-        if (isCPFInUse) {
+        if (isCPFInUse && isCPFInUse.id !== id) {
             return ({
                 message: "Esta CPF está em uso por outro usuário"
             })
@@ -82,7 +82,7 @@ export async function updateUserService(id: string, updateUserParams: UpdateUser
     }
     if (updateUserParams.phone) {
         const isPhoneInUse = await getUserByPhoneModel(updateUserParams.phone)
-        if (isPhoneInUse) {
+        if (isPhoneInUse && isPhoneInUse.id !== id) {
             return ({
                 message: "Este Número está sendo usado por outro usuário"
             })

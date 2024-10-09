@@ -1,5 +1,5 @@
 import { Prisma, PrismaClient } from "@prisma/client";
-import { createSubjectModel, getSubjectsByIdModel, getSubjectsModel, updateSubjectModel, getSubjectAndDeleteModel } from "../models/subjects";
+import { createSubjectModel, getSubjectsByIdModel, getSubjectsModel, updateSubjectModel, getSubjectAndDeleteModel, getSubjectsByClasseIdModel } from "../models/subjects";
 import { CreateClassParams, UpdateClassParams } from "../types/class";
 import { CreateSubjectParams, UpdateSubjectParams } from "../types/subjects";
 import { GetUsersParams } from "../types/user";
@@ -11,9 +11,18 @@ export async function getSubjectsService(params: {
     orderBy?: string;
     order?: 'asc' | 'desc';
 }) {
-
-    // Chamar o model passando a cláusula where e outros parâmetros
     const subjects = await getSubjectsModel(params);
+
+    return subjects;
+}
+export async function getSubjectsByClasseIdService(id: string, params: {
+    page?: number;
+    limit?: number;
+    search?: string;
+    orderBy?: string;
+    order?: 'asc' | 'desc';
+}) {
+    const subjects = await getSubjectsByClasseIdModel(id, params);
 
     return subjects;
 }

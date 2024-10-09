@@ -55,6 +55,59 @@ export async function getSubjectsModel({
     totalPages: Math.ceil(total / limit),
   };
 }
+export async function getSubjectsByClasseIdModel(id: string, {
+  page = 1,
+  limit = 10,
+  search = '',
+  orderBy = 'createdAt',
+  order = 'asc'
+}: {
+  page?: number;
+  limit?: number;
+  search?: string;
+  orderBy?: string;
+  order?: 'asc' | 'desc';
+}) {
+  const offset = (page - 1) * limit;
+
+  const whereClause: any = {
+    classId: id
+  };
+  if (search) {
+    whereClause.name = {
+      contains: search,
+      mode: 'insensitive'
+    };
+  }
+
+  const subjects = await prisma.subject.findMany({
+    skip: offset,
+    take: limit,
+    where: whereClause,
+    orderBy: {
+      [orderBy]: order,
+    },
+    include: {
+      _count: {
+        select: {
+          SubjectClass: true
+        }
+      }
+    }
+  });
+
+  const total = await prisma.subject.count({
+    where: whereClause,
+  });
+
+  return {
+    subjects,
+    total,
+    page,
+    limit,
+    totalPages: Math.ceil(total / limit),
+  };
+}
 
 export async function getSubjectsByIdModel(id: string) {
   return await prisma.subject.findUnique({

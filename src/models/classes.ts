@@ -60,7 +60,21 @@ export async function getClassesByIdModel(id: string) {
                 include: {
                     user: true,
                 },
-            },  
+            },
+            SubjectClass: {
+                include: {
+                    subject: {
+                        include: {
+                            _count: {
+                                select: {
+                                    SubjectClass: true
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            Schedule: true
         },
     });
     return { ...relations, ...classe }

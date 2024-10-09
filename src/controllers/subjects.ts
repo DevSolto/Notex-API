@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getSubjectsByIdService, getSubjectsService, createSubjectService, updateSubjectService, getSubjectAndDeleteService } from "../services/subjects";
+import { getSubjectsByIdService, getSubjectsService, createSubjectService, updateSubjectService, getSubjectAndDeleteService, getSubjectsByClasseIdService } from "../services/subjects";
 import { ZodError } from "zod";
 import { createSubjectSchema, updatesubjectSchema } from "../schemas/subjects";
 import { error } from "console";
@@ -24,6 +24,38 @@ subjectsRouter.get('/subjects', async (req, res) => {
         const orderValue = order as string === 'desc' ? 'desc' : 'asc';
 
         const subject = await getSubjectsService({
+            page: pageNumber,
+            limit: limitNumber,
+            search: search as string,
+            orderBy: orderByField,
+            order: orderValue
+        });
+
+        res.send(subject);
+    } catch (error) {
+        console.error('Error fetching subjects:', error);
+        res.status(500).send({ error: 'An error occurred while fetching subjects' });
+    }
+});
+subjectsRouter.get('/subjects/classe/:id', async (req, res) => {
+    try {
+        const {
+            page = 1,
+            limit = 10,
+            search,
+            orderBy = 'createdAt',
+            order = 'asc'
+        } = req.query;
+
+        const classeId = req.params.id
+        const allowedOrderFields = ['id', 'name', 'createdAt', 'updatedAt'];
+        const orderByField = allowedOrderFields.includes(orderBy as string) ? orderBy as string : 'createdAt';
+
+        const pageNumber = parseInt(page as string, 10);
+        const limitNumber = parseInt(limit as string, 10);
+        const orderValue = order as string === 'desc' ? 'desc' : 'asc';
+
+        const subject = await getSubjectsByClasseIdService(classeId, {
             page: pageNumber,
             limit: limitNumber,
             search: search as string,

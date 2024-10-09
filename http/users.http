@@ -42,7 +42,7 @@ GET  http://localhost:4000/users/cm1n1gecd0000p20tk2szib7u
 
 
 ### Buscar todos os usuários com paginação e ordenação padrão
-GET http://localhost:4000/users?page=1&limit=10
+GET http://localhost:4000/users?role=TEACHER
 
 ### Buscar usuários filtrados por nome, ordenados por email em ordem ascendente
 GET http://localhost:4000/users?page=1&limit=5&name=John&orderBy=email&order=asc

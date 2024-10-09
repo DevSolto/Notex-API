@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 
 export async function getUsersModel({
   page = 1,
-  limit = 10,
+  limit = 1000,
   whereClause = {},
   orderBy = 'createdAt',
   order = 'asc'
@@ -44,7 +44,7 @@ export async function getUsersModel({
 
 export async function getAvailableStudentsForClassModel({
   page = 1,
-  limit = 10,
+  limit = 1000,
   name,
   email,
   cpf,

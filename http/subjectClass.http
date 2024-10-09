@@ -1,5 +1,5 @@
 ### Create a new subject class record
-POST http://localhost:3000/subject-class
+POST http://localhost:4000/subjectclass
 Content-Type: application/json
 
 {
@@ -11,14 +11,14 @@ Content-Type: application/json
 ###
 
 ### Get all subject class records
-GET http://localhost:3000/subject-class
+GET http://localhost:4000/subject-class
 
 ###
 
 ### Get a specific subject class record by user ID, class ID, and subject ID
-GET http://localhost:3000/subject-class/{{userId}}/{{classId}}/{{subjectId}}
+GET http://localhost:4000/subject-class/{{userId}}/{{classId}}/{{subjectId}}
 
 ###
 
 ### Delete a subject class record
-DELETE http://localhost:3000/subject-class/{{userId}}/{{classId}}/{{subjectId}}
+DELETE http://localhost:4000/subject-class/{{userId}}/{{classId}}/{{subjectId}}

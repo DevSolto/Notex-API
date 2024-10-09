@@ -1,11 +1,7 @@
 import { Router } from "express";
 import { getSchedulesService, getSchedulesByIdService, createSchedulesService, updateScheduleService, getScheduleAndDeleteService } from "../services/schedules";
-import { CreateSchedulesParams, UpdateSchedulesParams } from "../types/schedules";
 import { ZodError } from "zod";
-import { scheduler } from "timers/promises";
-import { createScheduleSchema, updateScheduleSchema } from "../schemas/schedules";
-import { create } from "domain";
-import { updateScheduleModel } from "../models/schedules";
+import { createScheduleSchema, updateScheduleSchema } from "../schemas/schedules"
 
 export const schedulesRouter = Router();
 

@@ -1,5 +1,5 @@
 ### Create a new schedule
-POST http://localhost:3000/schedules
+POST http://localhost:4000/schedules
 Content-Type: application/json
 
 {
