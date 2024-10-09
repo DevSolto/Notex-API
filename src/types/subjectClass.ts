@@ -1,11 +1,11 @@
 export type CreateSubjectClassParams = {
-    userId: String
-    classId: String
-    subjectId: String
+    userId: string
+    classId: string
+    subjectId: string
 }
 
 export type UpdateSubjectClassParams = {
-    userId?: String
-    classId?: String
-    subjectId?: String
+    userId?: string
+    classId?: string
+    subjectId?: string
 }

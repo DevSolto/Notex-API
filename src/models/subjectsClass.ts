@@ -8,16 +8,18 @@ export async function getSubjectsClassModel() {
     return await prisma.subjectClass.findMany()
 }
 
-export async function createSubjectsClassModel(createSubjectParams: CreateSubjectParams) {
+export async function createSubjectsClassModel(createSubjectClassParams: CreateSubjectClassParams) {
     return prisma.subjectClass.create({
-        data: createSubjectParams
+        data: createSubjectClassParams
     })
 }
 
 export async function getSubjectsClassAndDeleteModel(id: string) {
     return await prisma.subjectClass.delete({
         where: {
-            userId_classId_subjectId: id
+            userId: id,
+            classId: id,
+            subjectId: id
         }
     })
 }

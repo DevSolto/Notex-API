@@ -17,7 +17,7 @@ subjectClassRouter.post('/subjectClass', async (req, res) => {
         const createSubjectClassParams = createSubjectClassSchema.parse(req.body)
         const createdSubjectClass = await createSubjectClassService(createSubjectClassParams)
         res.send(createdSubjectClass)
-    } catch (error) {
+    } catch (error) 
         if (error instanceof ZodError) {
             res.status(400).send(error)
         } else {
