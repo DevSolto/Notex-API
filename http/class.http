@@ -18,7 +18,7 @@ Content-Type: application/json
 ###
 
 ### Testando a rota com paginação (página 2, 5 itens por página)vi
-GET http://localhost:4000/classes/students/idDoUsuário
+GET http://localhost:4000/metrics
 Content-Type: application/json
 
 ###

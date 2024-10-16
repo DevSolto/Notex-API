@@ -2,8 +2,11 @@ import { Router } from "express";
 import { createUserService, getAvailableStudentsForClassService, getUserByIdService, getUsersServices, updateUserService } from "../services/users";
 import { createUserSchema, updateUserSchema } from "../schemas/users";
 import { ZodError } from "zod";
+import { authMiddleware } from "../middlewares/auth";
 
 export const userRouter = Router();
+
+userRouter.use(authMiddleware);
 
 userRouter.get('/users', async (req, res) => {
     try {

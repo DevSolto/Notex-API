@@ -1,23 +1,17 @@
 ### Create a new user
-POST http://localhost:4000/users
+POST http://localhost:4000/login
 Content-Type: application/json
 
 {
-  "name": "Lygia Negreiros",
-  "avatarUrl":"https://github.com/DevSolto.png",
-  "email": "lygia@example.com",
   "cpf": "699.185.820-06",
-  "password": "strongpassword123",
-  "role": "STUDENT",
-  "phone": "561325191080",
-  "isActive": true
+  "password": "strongpassword123"
 }
 
 ###
 
-### Get all users
-GET http://localhost:4000/users
-
+GET http://localhost:4000/users/cm2bwyumm00009pwk22f93gkp
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
 ###
 
 ### Get a specific user by ID
