@@ -23,10 +23,11 @@ export async function loginService(data: z.infer<typeof loginSchema>) {
   }
 
   const token = await jwt.sign({
-    userId: user.id
+    user
   }, process.env.SECRET || 'secreto', { expiresIn: '1 day' })
 
   return {
-    token
+    token,
+    user
   }
 }

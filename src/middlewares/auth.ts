@@ -1,32 +1,33 @@
 import { NextFunction, Request, Response } from "express";
-import jwt, { JwtPayload } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
-export async function authMiddleware(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+export function authMiddleware(req: Request, res: Response, next: NextFunction) {
+  if (req.path === '/login') {
+    return next();
+  }
+  if (req.path.startsWith('/api-docs')) {
+    return next();
+  }
+
   try {
-    if (req.path === '/login') return next();
-    // Recupera o token do cabeçalho Authorization
-    let token = req.headers.authorization;
+    const authHeader = req.headers.authorization;
 
-    if (!token) {
-      return res.status(401).send("Unauthorized: No token provided");
+    if (!authHeader) {
+      return res.status(401).json({ message: "Token não fornecido" });
     }
 
-    // Remove o prefixo 'Bearer' do token
-    token = token.split(" ")[1];
+    const token = authHeader.split(' ')[1]; // Extrai o token do formato: Bearer <token>
 
-    // Verifica e decodifica o token usando a chave secreta
-    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as JwtPayload;
+    if (!token) {
+      return res.status(401).json({ message: "Token ausente no cabeçalho" });
+    }
 
-    // Adiciona o usuário decodificado ao objeto de solicitação
-    req.user = decoded.user;
+    const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
 
-    next(); // Continua para o próximo middleware ou rota
+    req.user = decoded
+    next();
   } catch (error) {
-    console.error("Authentication error:", error);
-    res.status(401).send("Unauthorized: Invalid or expired token");
+    console.error("Erro de autenticação:", error);
+    return res.status(401).json({ message: "Token inválido ou expirado" });
   }
 }

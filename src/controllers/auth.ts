@@ -9,8 +9,8 @@ authRouter.post('/login', async (req, res) => {
   try {
     const loginParams = loginSchema.parse(req.body)
 
-    const token = await loginService(loginParams)
-    res.send(token)
+    const data = await loginService(loginParams)
+    res.send(data)
 
   } catch (error) {
     res.status(500).send(error)

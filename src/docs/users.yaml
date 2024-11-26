@@ -1,0 +1,332 @@
+openapi: 3.0.0
+info:
+  title: API de Usuários
+  description: API para gerenciamento de usuários e estudantes.
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+
+paths:
+  /users:
+    get:
+      summary: Lista usuários
+      description: Retorna uma lista de usuários com suporte a filtros, paginação e ordenação.
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 1
+          description: Número da página.
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 100
+          description: Quantidade de usuários por página.
+        - in: query
+          name: search
+          schema:
+            type: string
+          description: Busca genérica (exemplo: nome).
+        - in: query
+          name: email
+          schema:
+            type: string
+          description: Filtro por email.
+        - in: query
+          name: cpf
+          schema:
+            type: string
+          description: Filtro por CPF.
+        - in: query
+          name: isActive
+          schema:
+            type: boolean
+          description: Filtrar por usuários ativos/inativos.
+        - in: query
+          name: role
+          schema:
+            type: string
+            enum: [STUDENT, TEACHER, ADMIN]
+          description: Filtro por cargo.
+        - in: query
+          name: phone
+          schema:
+            type: string
+          description: Filtro por telefone.
+        - in: query
+          name: orderBy
+          schema:
+            type: string
+            enum: [id, name, email, cpf, role, phone, createdAt, updatedAt]
+            default: createdAt
+          description: Campo para ordenação.
+        - in: query
+          name: order
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+          description: Direção da ordenação.
+      responses:
+        200:
+          description: Lista de usuários retornada com sucesso.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        500:
+          description: Erro ao buscar usuários.
+    post:
+      summary: Cria um usuário
+      description: Cria um novo usuário no sistema.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserParams'
+      responses:
+        201:
+          description: Usuário criado com sucesso.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        400:
+          description: Erro de validação.
+        500:
+          description: Erro no servidor.
+
+  /users/{id}:
+    get:
+      summary: Retorna um usuário pelo ID
+      description: Retorna as informações de um usuário específico.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: ID do usuário.
+      responses:
+        200:
+          description: Usuário encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        404:
+          description: Usuário não encontrado.
+        500:
+          description: Erro no servidor.
+    patch:
+      summary: Atualiza informações de um usuário
+      description: Atualiza campos específicos de um usuário existente.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: ID do usuário.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserParams'
+      responses:
+        200:
+          description: Usuário atualizado com sucesso.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        400:
+          description: Erro de validação.
+        404:
+          description: Usuário não encontrado.
+        500:
+          description: Erro no servidor.
+    delete:
+      summary: Desativa um usuário
+      description: Marca um usuário como inativo no sistema.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: ID do usuário.
+      responses:
+        200:
+          description: Usuário desativado com sucesso.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        404:
+          description: Usuário não encontrado.
+        500:
+          description: Erro no servidor.
+
+  /students/{classId}:
+    get:
+      summary: Lista estudantes disponíveis para uma turma
+      description: Retorna estudantes disponíveis para a turma especificada.
+      parameters:
+        - in: path
+          name: classId
+          required: true
+          schema:
+            type: string
+          description: ID da turma.
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 1
+          description: Número da página.
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 10
+          description: Quantidade de estudantes por página.
+        - in: query
+          name: name
+          schema:
+            type: string
+          description: Filtro por nome.
+        - in: query
+          name: email
+          schema:
+            type: string
+          description: Filtro por email.
+        - in: query
+          name: cpf
+          schema:
+            type: string
+          description: Filtro por CPF.
+        - in: query
+          name: isActive
+          schema:
+            type: boolean
+          description: Filtrar por estudantes ativos/inativos.
+        - in: query
+          name: phone
+          schema:
+            type: string
+          description: Filtro por telefone.
+        - in: query
+          name: orderBy
+          schema:
+            type: string
+            enum: [id, name, email, cpf, role, phone, createdAt, updatedAt]
+            default: createdAt
+          description: Campo para ordenação.
+        - in: query
+          name: order
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+          description: Direção da ordenação.
+      responses:
+        200:
+          description: Lista de estudantes retornada com sucesso.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        500:
+          description: Erro ao buscar estudantes.
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        avatarUrl:
+          type: string
+          format: url
+        email:
+          type: string
+          format: email
+        cpf:
+          type: string
+        role:
+          type: string
+          enum: [STUDENT, TEACHER, ADMIN]
+        phone:
+          type: string
+        isActive:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    CreateUserParams:
+      type: object
+      required:
+        - name
+        - avatarUrl
+        - email
+        - cpf
+        - password
+        - role
+        - phone
+      properties:
+        name:
+          type: string
+        avatarUrl:
+          type: string
+          format: url
+        email:
+          type: string
+          format: email
+        cpf:
+          type: string
+        password:
+          type: string
+          minLength: 8
+        role:
+          type: string
+          enum: [STUDENT, TEACHER, ADMIN]
+        phone:
+          type: string
+    UpdateUserParams:
+      type: object
+      properties:
+        name:
+          type: string
+        avatarUrl:
+          type: string
+          format: url
+        email:
+          type: string
+          format: email
+        cpf:
+          type: string
+        password:
+          type: string
+          minLength: 8
+        role:
+          type: string
+          enum: [STUDENT, TEACHER, ADMIN]
+        phone:
+          type: string
+        isActive:
+          type: boolean

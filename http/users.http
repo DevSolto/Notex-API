@@ -11,8 +11,7 @@ Content-Type: application/json
 
 GET http://localhost:4000/users/cm2bwyumm00009pwk22f93gkp
 Content-Type: application/json
-Authorization: Bearer {{accessToken}}
-###
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjbTJid3l1bW0wMDAwOXB3azIyZjkzZ2twIiwiaWF0IjoxNzI5MTg0MDY3LCJleHAiOjE3MjkyNzA0Njd9.cGCWbc4oCbEmul4wDzctACk-R8Ai34we2OECrfxVlYo
 
 ### Get a specific user by ID
 GET http://localhost:4000/students/cm1mnplty0008vla9htw2e54m
@@ -20,13 +19,19 @@ GET http://localhost:4000/students/cm1mnplty0008vla9htw2e54m
 ###
 
 ### Update a user
-PATCH http://localhost:4000/users/{{userId}}
+POST http://localhost:4000/users/
 Content-Type: application/json
+Authorization: BeaBearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjbTJid3l1bW0wMDAwOXB3azIyZjkzZ2twIiwiaWF0IjoxNzI5MTg0MDY3LCJleHAiOjE3MjkyNzA0Njd9.cGCWbc4oCbEmul4wDzctACk-R8Ai34we2OECrfxVlYo
 
 {
-  "name": "John Updated",
-  "email": "john.updated@example.com",
-  "phone": "987654321"
+  "name": "Rayssa Santos",
+  "avatarUrl":"https://github.com/DevSolto.png",
+  "email": "rayssa@example.com",
+  "cpf": "218.819.920-04",
+  "password": "12345678",
+  "role": "STUDENT",
+  "phone": "00000000000",
+  "isActive": true
 }
 
 ###

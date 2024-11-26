@@ -8,6 +8,82 @@ export const userRouter = Router();
 
 userRouter.use(authMiddleware);
 
+/**
+ * @swagger
+ * /users:
+ *   get:
+ *     summary: Lista usuários
+ *     description: Retorna uma lista de usuários com suporte a filtros e paginação.
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *         description: Número da página.
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           default: 100
+ *         description: Limite de usuários por página.
+ *       - in: query
+ *         name: search
+ *         schema:
+ *           type: string
+ *         description: Filtro por nome.
+ *       - in: query
+ *         name: email
+ *         schema:
+ *           type: string
+ *         description: Filtro por email.
+ *       - in: query
+ *         name: cpf
+ *         schema:
+ *           type: string
+ *         description: Filtro por CPF.
+ *       - in: query
+ *         name: isActive
+ *         schema:
+ *           type: boolean
+ *         description: Filtro por status ativo/inativo.
+ *       - in: query
+ *         name: role
+ *         schema:
+ *           type: string
+ *           enum: [STUDENT, TEACHER, ADMIN]
+ *         description: Filtro por cargo.
+ *       - in: query
+ *         name: phone
+ *         schema:
+ *           type: string
+ *         description: Filtro por telefone.
+ *       - in: query
+ *         name: orderBy
+ *         schema:
+ *           type: string
+ *           enum: [id, name, email, cpf, role, phone, createdAt, updatedAt]
+ *           default: createdAt
+ *         description: Campo para ordenação.
+ *       - in: query
+ *         name: order
+ *         schema:
+ *           type: string
+ *           enum: [asc, desc]
+ *           default: asc
+ *         description: Direção da ordenação.
+ *     responses:
+ *       200:
+ *         description: Lista de usuários.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/User'
+ *       500:
+ *         description: Erro ao buscar usuários.
+ */
 userRouter.get('/users', async (req, res) => {
     try {
         const {
@@ -51,9 +127,26 @@ userRouter.get('/users', async (req, res) => {
     }
 });
 
-
-
-
+/**
+ * @swagger
+ * /users:
+ *   post:
+ *     summary: Cria um novo usuário
+ *     description: Adiciona um novo usuário ao sistema.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/CreateUserParams'
+ *     responses:
+ *       201:
+ *         description: Usuário criado com sucesso.
+ *       400:
+ *         description: Erro de validação.
+ *       500:
+ *         description: Erro no servidor.
+ */
 userRouter.post('/users', async (req, res) => {
     try {
         const createUserParams = createUserSchema.parse(req.body)
@@ -83,6 +176,33 @@ userRouter.post('/users', async (req, res) => {
     }
 })
 
+/**
+ * @swagger
+ * /users/{id}:
+ *   patch:
+ *     summary: Atualiza um usuário
+ *     description: Atualiza os dados de um usuário específico.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID do usuário.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/UpdateUserParams'
+ *     responses:
+ *       200:
+ *         description: Usuário atualizado com sucesso.
+ *       400:
+ *         description: Erro de validação.
+ *       500:
+ *         description: Erro no servidor.
+ */
 userRouter.patch('/users/:id', async (req, res) => {
     try {
         const userId = req.params.id
@@ -97,6 +217,32 @@ userRouter.patch('/users/:id', async (req, res) => {
         }
     }
 })
+
+/**
+ * @swagger
+ * /users/{id}:
+ *   get:
+ *     summary: Busca usuário pelo ID
+ *     description: Retorna os detalhes de um usuário específico.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID do usuário.
+ *     responses:
+ *       200:
+ *         description: Detalhes do usuário.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       404:
+ *         description: Usuário não encontrado.
+ *       500:
+ *         description: Erro no servidor.
+ */
 userRouter.get('/users/:id', async (req, res) => {
     try {
         const userId = req.params.id
@@ -111,6 +257,31 @@ userRouter.get('/users/:id', async (req, res) => {
     }
 })
 
+/**
+ * @swagger
+ * /users/{id}:
+ *   delete:
+ *     summary: Desativa uma usuário
+ *     description: Retorna as informações do usuário desativado.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID do usuário.
+ *     responses:
+ *       200:
+ *         description: Detalhes do usuário.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       404:
+ *         description: Usuário não encontrado.
+ *       500:
+ *         description: Erro no servidor.
+ */
 userRouter.delete('/users/:id', async (req, res) => {
     try {
         const user = await updateUserService(req.params.id, {
@@ -126,6 +297,83 @@ userRouter.delete('/users/:id', async (req, res) => {
     }
 })
 
+
+/**
+ * @swagger
+ * /students/{classId}:
+ *   get:
+ *     summary: Lista estudantes disponíveis para uma turma
+ *     description: Retorna uma lista de estudantes disponíveis para uma turma específica.
+ *     parameters:
+ *       - in: path
+ *         name: classId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID da turma.
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *         description: Número da página.
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           default: 10
+ *         description: Limite de estudantes por página.
+ *       - in: query
+ *         name: name
+ *         schema:
+ *           type: string
+ *         description: Filtrar por nome.
+ *       - in: query
+ *         name: email
+ *         schema:
+ *           type: string
+ *         description: Filtrar por email.
+ *       - in: query
+ *         name: cpf
+ *         schema:
+ *           type: string
+ *         description: Filtrar por CPF.
+ *       - in: query
+ *         name: isActive
+ *         schema:
+ *           type: boolean
+ *         description: Filtrar por status ativo/inativo.
+ *       - in: query
+ *         name: phone
+ *         schema:
+ *           type: string
+ *         description: Filtrar por telefone.
+ *       - in: query
+ *         name: orderBy
+ *         schema:
+ *           type: string
+ *           enum: [id, name, email, cpf, role, phone, createdAt, updatedAt]
+ *           default: createdAt
+ *         description: Campo de ordenação.
+ *       - in: query
+ *         name: order
+ *         schema:
+ *           type: string
+ *           enum: [asc, desc]
+ *           default: asc
+ *         description: Direção da ordenação.
+ *     responses:
+ *       200:
+ *         description: Lista de estudantes.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/User'
+ *       500:
+ *         description: Erro ao buscar estudantes.
+ */
 userRouter.get('/students/:classId', async (req, res) => {
     try {
         const {
