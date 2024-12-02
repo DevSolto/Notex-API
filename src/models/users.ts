@@ -48,6 +48,7 @@ export async function getAvailableStudentsForClassModel({
   name,
   email,
   cpf,
+  avatarUrl,
   isActive,
   role = 'STUDENT',
   phone,
@@ -60,6 +61,7 @@ export async function getAvailableStudentsForClassModel({
   name?: string;
   email?: string;
   cpf?: string;
+  avatarUrl?: string;
   isActive?: boolean;
   role?: string;
   phone?: string;
@@ -71,6 +73,11 @@ export async function getAvailableStudentsForClassModel({
 
   const whereClause: any = {
     role: { equals: 'STUDENT' },
+    Studing: {
+      some: {
+        classId: classId,  // Aqui filtramos para encontrar estudantes que estão na turma
+      },
+    },
   };
 
   if (name) whereClause.name = { contains: name };
@@ -78,12 +85,6 @@ export async function getAvailableStudentsForClassModel({
   if (cpf) whereClause.cpf = { equals: cpf };
   if (isActive !== undefined) whereClause.isActive = isActive;
   if (phone) whereClause.phone = { contains: phone };
-
-  whereClause.Studing = {
-    none: {
-      classId: classId,
-    },
-  };
 
   const users = await prisma.users.findMany({
     skip: offset,

@@ -24,6 +24,7 @@ const options: swaggerJsdoc.Options = {
             name: { type: 'string', example: 'John Doe' },
             email: { type: 'string', example: 'john.doe@example.com' },
             cpf: { type: 'string', example: '123.456.789-00' },
+            avatarUrl: { type: 'string', example: 'https://www.pontotel.com.br/local/wp-content/uploads/2022/05/imagem-corporativa.webp' },
             role: {
               type: 'string',
               enum: ['STUDENT', 'TEACHER', 'ADMIN'],

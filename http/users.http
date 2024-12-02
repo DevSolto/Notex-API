@@ -2,10 +2,16 @@
 POST http://localhost:4000/login
 Content-Type: application/json
 
-{
-  "cpf": "699.185.820-06",
-  "password": "strongpassword123"
-}
+[
+  {
+    "cpf": "699.185.820-06",
+    "password": "strongpassword123"
+  },
+  {
+    "cpf": "218.819.920-04",
+    "password": "$2b$10$gS9OYm2CSxwWO5H6CS20/O7MQYM9jtopndwJt7PrQSqVBAbwsZ7FO"
+  }
+]
 
 ###
 

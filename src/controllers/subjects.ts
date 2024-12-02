@@ -47,15 +47,15 @@ subjectsRouter.get('/subjects/classe/:id', async (req, res) => {
             order = 'asc'
         } = req.query;
 
-        const classeId = req.params.id
-        const allowedOrderFields = ['id', 'name', 'createdAt', 'updatedAt'];
+        const classId = req.params.id
+        const allowedOrderFields = ['id', 'name', 'createdAt', 'updatedAt', 'subfield'];
         const orderByField = allowedOrderFields.includes(orderBy as string) ? orderBy as string : 'createdAt';
 
         const pageNumber = parseInt(page as string, 10);
         const limitNumber = parseInt(limit as string, 10);
         const orderValue = order as string === 'desc' ? 'desc' : 'asc';
 
-        const subject = await getSubjectsByClasseIdService(classeId, {
+        const subject = await getSubjectsByClasseIdService(classId, {
             page: pageNumber,
             limit: limitNumber,
             search: search as string,
@@ -116,3 +116,23 @@ subjectsRouter.delete('/subjects/:id', async (req, res) => {
         }
     }
 })
+
+subjectsRouter.get("/by-class/:id", async (req, res) => {
+    try {
+        const classId = req.params.id;
+        const { page, limit, search, orderBy, order } = req.query;
+
+        const subjects = await getSubjectsByClasseIdService(classId, {
+            page: page ? parseInt(page as string, 10) : undefined,
+            limit: limit ? parseInt(limit as string, 10) : undefined,
+            search: search as string,
+            orderBy: orderBy as string,
+            order: order as 'asc' | 'desc',
+        });
+
+        res.status(200).json(subjects);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Erro ao buscar disciplinas da turma." });
+    }
+});
