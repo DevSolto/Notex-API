@@ -71,15 +71,17 @@ export async function getSubjectsByClasseIdModel(id: string, {
   const offset = (page - 1) * limit;
 
   const whereClause: any = {
-    classId: id
-  };
-  if (search) {
-    whereClause.name = {
+    SubjectClass: { // Verificando a tabela intermediária
+      some: { // Verificando se existe algum relacionamento com a 'classId'
+        classId: id
+      }
+    },
+    name: search ? {
       contains: search,
       mode: 'insensitive'
-    };
-  }
-
+    } : undefined
+  };
+  
   const subjects = await prisma.subject.findMany({
     skip: offset,
     take: limit,
@@ -95,11 +97,14 @@ export async function getSubjectsByClasseIdModel(id: string, {
       }
     }
   });
-
-  const total = await prisma.subject.count({
-    where: whereClause,
+  
+  // Contando o total de subjects relacionados à classe
+  const total = await prisma.subjectClass.count({
+    where: {
+      classId: id // Contando os registros na tabela de relacionamento SubjectClass
+    }
   });
-
+  
   return {
     subjects,
     total,
@@ -107,6 +112,7 @@ export async function getSubjectsByClasseIdModel(id: string, {
     limit,
     totalPages: Math.ceil(total / limit),
   };
+  
 }
 
 export async function getSubjectsByIdModel(id: string) {

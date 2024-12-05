@@ -43,7 +43,7 @@ export async function getConceptsModel({
 export async function getConceptsByIdModel(id: string) {
   return await prisma.concept.findUnique({
     where: {
-      id
+      id: id // Certifique-se de que 'id' seja do tipo correto
     }
   })
 }
@@ -55,14 +55,19 @@ export async function createConceptModel(data: CreateConceptParams) {
 }
 
 export async function updateConceptModel(id: string, data: UpdateConceptParams) {
-
-  return await prisma.concept.update({
-    where: {
-      id
-    },
-    data
-  })
+  try {
+    // Atualização do registro no banco de dados
+    return await prisma.concept.update({
+      where: {
+        id, // Prisma aceita diretamente "id: id" como "id"
+      },
+      data,
+    });
+  } catch (error) {
+    throw new Error('Erro ao atualizar o conceito no banco de dados.');
+  }
 }
+
 
 export async function getConceptAndDeleteModel(id: string) {
   return await prisma.concept.delete({

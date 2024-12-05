@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { ZodError } from "zod";
 import { createStudyingSchema, updateStudyingSchema } from "../schemas/studying";
-import { createStudyingService, getStudyingAndDeleteService, getStudyingByIdService, getStudyingService, updateStudyingService } from "../services/studying";
+import { createStudyingService, getStudyingAndDeleteService, getStudyingByIdService, getStudyingService, updateStudyingService, findClassByStudentCpfService } from "../services/studying";
 
 export const studyingRouter = Router();
 
@@ -74,3 +74,19 @@ studyingRouter.delete('/studying/:id', async (req, res) => {
     }
   }
 })
+studyingRouter.get('/studying/cpf/:cpf', async (req, res) => {
+  const { cpf } = req.params;
+
+  try {
+    const studentClass = await findClassByStudentCpfService(cpf);
+    res.status(200).send(studentClass);
+  } catch (error) {
+    if (error.message === "Estudante não encontrado.") {
+      return res.status(404).send({ message: error.message });
+    }
+    if (error.message === "O estudante não está matriculado em nenhuma turma.") {
+      return res.status(404).send({ message: error.message });
+    }
+    res.status(500).send({ message: "Erro interno do servidor." });
+  }
+});

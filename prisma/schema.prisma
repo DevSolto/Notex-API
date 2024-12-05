@@ -42,19 +42,26 @@ model Users {
   Teach Teach[]
 }
 
+
 model Concept {
-  id  String @id @default(cuid())
-  url String
+  id         String   @id @default(cuid())
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  av1        String?   // Conceito da AV1
+  av2        String?   // Conceito da AV2
 
-  creatorId String
-  creator   Users? @relation("creator", fields: [creatorId], references: [id])
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
-  studentId String
-  student   Users? @relation("student", fields: [studentId], references: [id])
+  creatorId  String
+  creator    Users?   @relation("creator", fields: [creatorId], references: [id])
+
+  studentId  String
+  student    Users?   @relation("student", fields: [studentId], references: [id])
+
+  subjectId  String       // Chave estrangeira para Subject
+  subject    Subject?      @relation(fields: [subjectId], references: [id])  
 }
+
 
 model Report {
   id          String @id @default(cuid())
@@ -95,6 +102,7 @@ model Subject {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  concepts   Concept[]   
   SubjectClass SubjectClass[]
 }
 

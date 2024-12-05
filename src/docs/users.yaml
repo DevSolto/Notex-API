@@ -213,6 +213,11 @@ paths:
             type: string
           description: Filtro por CPF.
         - in: query
+          name: avatarUrl
+          schema:
+            type: string
+          description: Filtro pela foto de perfil.
+        - in: query
           name: isActive
           schema:
             type: boolean
@@ -265,6 +270,9 @@ components:
           format: email
         cpf:
           type: string
+        avatarUrl:
+          type: string
+          format: url
         role:
           type: string
           enum: [STUDENT, TEACHER, ADMIN]

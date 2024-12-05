@@ -1,6 +1,9 @@
 import { createUserModel, getAvailableStudentsForClassModel, getUserByCPFModel, getUserByEmailModel, getUserByIdModel, getUserByPhoneModel, getUsersModel, updateUserModel } from "../models/users";
 import { CreateUserParams, GetUsersParams, UpdateUserParams } from "../types/user";
-import bcrypt from "bcrypt"
+import bcrypt from "bcrypt";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 export async function getUsersServices(params: GetUsersParams) {
     const whereClause: any = {};
@@ -102,21 +105,23 @@ export async function updateUserService(id: string, updateUserParams: UpdateUser
 
 export async function getAvailableStudentsForClassService({
     page = 1,
-    limit = 10,
+    limit = 100,
     name,
     email,
     cpf,
+    avatarUrl,
     isActive,
     phone,
     classId,
     orderBy = 'createdAt',
-    order = 'asc',
+    order = 'asc'
 }: {
     page?: number;
     limit?: number;
     name?: string;
     email?: string;
     cpf?: string;
+    avatarUrl: string,
     isActive?: boolean;
     phone?: string;
     classId: string;
@@ -134,11 +139,12 @@ export async function getAvailableStudentsForClassService({
             name,
             email,
             cpf,
+            avatarUrl,
             isActive,
             phone,
             classId,
             orderBy,
-            order,
+            order
         });
 
         return result;
@@ -147,3 +153,57 @@ export async function getAvailableStudentsForClassService({
         throw new Error('Não foi possível buscar estudantes disponíveis.');
     }
 }
+export const getUserClassByCpfService = async (cpf: string) => {
+    try {
+        // Encontra o usuário pelo CPF e retorna as classes associadas a ele
+        const user = await prisma.users.findUnique({
+            where: { cpf },
+            include: {
+                Studing: { // Incluir a relação Studying para acessar as classes
+                    include: {
+                        class: true, // A relação com a classe
+                    },
+                },
+            },
+        });
+
+        if (!user) {
+            throw new Error('Usuário não encontrado');
+        }
+
+        // Retorna as classes associadas ao usuário
+        return user.Studing.map(study => study.class);
+    } catch (error) {
+        throw new Error(`Erro ao buscar classe do usuário: ${error.message}`);
+    }
+};
+
+
+export async function addStudentToClass(userId, classId) {
+    try {
+      // Verifica se o usuário e a classe existem
+      const user = await prisma.users.findUnique({ where: { id: userId } });
+      const classEntity = await prisma.class.findUnique({ where: { id: classId } });
+  
+      if (!user) {
+        throw new Error('Usuário não encontrado');
+      }
+      if (!classEntity) {
+        throw new Error('Turma não encontrada');
+      }
+  
+      // Criando a relação de matrícula entre o estudante e a turma
+      const enrollment = await prisma.studying.create({
+        data: {
+          userId: user.id,
+          classId: classEntity.id,
+        },
+      });
+  
+      console.log('Estudante adicionado à turma:', enrollment);
+    } catch (error) {
+      console.error('Erro ao adicionar estudante à turma:', error.message);
+    } finally {
+      await prisma.$disconnect();
+    }
+  }

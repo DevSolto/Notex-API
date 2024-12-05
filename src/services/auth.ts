@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { loginSchema } from "../schemas/auth";
+import { loginSchema, loginStudentsSchema } from "../schemas/auth";
 import { getUserByCPFModel } from "../models/users";
 import bcrypt from "bcrypt"
 import jwt from 'jsonwebtoken'
