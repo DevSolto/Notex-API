@@ -1,52 +1,56 @@
-import { createConceptModel, getConceptsModel, getConceptsByIdModel, updateConceptModel, getConceptAndDeleteModel } from "../models/concepts";
+import { 
+  createConceptModel, 
+  getConceptsModel, 
+  getConceptsByIdModel, 
+  updateConceptModel, 
+  getConceptAndDeleteModel 
+} from "../models/concepts";
 import { getUserByIdModel } from "../models/users";
 import { CreateConceptParams, GetConceptParams, UpdateConceptParams } from "../types/concept";
 
-
 export async function getConceptsService(params: GetConceptParams) {
-  const whereClause: any = {};
+  const whereClause: any = params.whereClause || {}; // Pega o filtro de studentId se passado
 
-  if (params.search) {
-    whereClause.url = { contains: params.search, mode: 'insensitive' };
+  try {
+    const concepts = await getConceptsModel({
+      ...params,
+      whereClause,
+    });
+    return concepts;
+  } catch (error) {
+    throw new Error('Erro ao recuperar os conceitos');
   }
-
-  if (params.isActive !== undefined) {
-    whereClause.isActive = params.isActive;
-  }
-
-  const concepts = await getConceptsModel({
-    ...params,
-    whereClause,
-  });
-
-  return concepts;
 }
 
+
 export async function getConceptsByIdService(id: string) {
-  return await getConceptsByIdModel(id)
+  try {
+    return await getConceptsByIdModel(id);
+  } catch (error) {
+    throw new Error('Erro ao recuperar o conceito');
+  }
 }
 
 export async function createConceptService(createConceptParams: CreateConceptParams) {
-
-  const creator = await getUserByIdModel(createConceptParams.creatorId);
-  if (!creator) {
-    throw new Error('Criador não encontrado');
-  }
-
-  const student = await getUserByIdModel(createConceptParams.studentId);
-  if (!student) {
-    throw new Error('Estudante não encontrado');
-  }
-
-  if (creator.role !== 'TEACHER') {
-    throw new Error('O criador precisa ser obrigatoriamente um professor');
-  }
-
-  if (student.role !== 'STUDENT') {
-    throw new Error('O estudante precisa ser obrigatoriamente um estudante');
-  }
-
   try {
+    const creator = await getUserByIdModel(createConceptParams.creatorId);
+    if (!creator) {
+      throw new Error('Criador não encontrado');
+    }
+
+    const student = await getUserByIdModel(createConceptParams.studentId);
+    if (!student) {
+      throw new Error('Estudante não encontrado');
+    }
+
+    if (creator.role !== 'TEACHER') {
+      throw new Error('O criador precisa ser obrigatoriamente um professor');
+    }
+
+    if (student.role !== 'STUDENT') {
+      throw new Error('O estudante precisa ser obrigatoriamente um estudante');
+    }
+
     return await createConceptModel(createConceptParams);
   } catch (error) {
     throw new Error('Erro ao criar o conceito');
@@ -54,21 +58,26 @@ export async function createConceptService(createConceptParams: CreateConceptPar
 }
 
 export async function updateConceptService(id: string, updateConceptParams: UpdateConceptParams) {
-  if (updateConceptParams.url) {
-    const isWaiInUse = await getConceptsByIdModel(updateConceptParams.url)
-    if (isWaiInUse) {
-      return ({
-        message: "Esse conceito já está atualizado"
-      })
+  try {
+    if (!id || typeof id !== 'string') {
+      throw new Error('O ID do conceito deve ser uma string válida.');
     }
-  }
 
-  return await updateConceptModel(id, updateConceptParams)
+    // Validação adicional em updateConceptParams (se necessário)
+    return await updateConceptModel(id, updateConceptParams);
+  } catch (error) {
+    console.error('Erro no serviço:', error.message);
+    throw new Error('Erro ao processar a atualização do conceito.');
+  }
 }
 
+
+
 export async function getConceptAndDeleteService(id: string) {
-
-  const getAndDelete = await getConceptAndDeleteModel(id)
-
-  return getAndDelete
+  try {
+    const concept = await getConceptAndDeleteModel(id);
+    return concept;
+  } catch (error) {
+    throw new Error('Erro ao recuperar e excluir o conceito');
+  }
 }

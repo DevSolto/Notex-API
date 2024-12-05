@@ -103,7 +103,7 @@ userRouter.get('/users', async (req, res) => {
             order = 'asc'
         } = req.query;
 
-        const allowedOrderFields = ['id', 'name', 'email', 'cpf', 'role', 'phone', 'createdAt', 'updatedAt'];
+        const allowedOrderFields = ['id', 'name', 'avatarUrl', 'email', 'cpf', 'role', 'phone', 'createdAt', 'updatedAt'];
         const orderByField = allowedOrderFields.includes(orderBy as string) ? orderBy as string : 'createdAt';
 
         const pageNumber = parseInt(page as string, 10);

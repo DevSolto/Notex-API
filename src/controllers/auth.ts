@@ -7,6 +7,7 @@ export const authRouter = Router();
 
 authRouter.post('/login', async (req, res) => {
   try {
+    console.log("ola")
     const loginParams = loginSchema.parse(req.body)
 
     const data = await loginService(loginParams)
